@@ -1,5 +1,5 @@
 // ========== CONFIG ==========
-const API_URL = "https://free-agents-backend.onrender.com";";
+const API_URL = "https://free-agents-backend.onrender.com" ;
 
 // ========== STATE ==========
 let currentUser = null;
