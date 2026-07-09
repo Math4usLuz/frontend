@@ -6,12 +6,16 @@
     <title>Free Agents - MPS</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --pitch-black: #0f0f23;
+            --card-surface: rgba(15, 15, 35, 0.75);
+            --card-edge: rgba(255, 255, 255, 0.1);
             --gold: #2563eb;
             --gold-soft: rgba(37, 99, 235, 0.12);
             --grass: #1d4ed8;
+            --grass-soft: rgba(29, 78, 216, 0.14);
             --floodlight: #f3f7f4;
             --muted: #8a94f8;
             --discord: #5865f2;
@@ -20,8 +24,15 @@
             --card-gold-2: #93c5fd;
             --card-gold-3: #3b82f6;
             --card-gold-text: #1e3a5f;
+            --card-gold-light: hsl(213, 90%, 88%);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #08060f;
@@ -32,6 +43,7 @@
             justify-content: center;
             position: relative;
         }
+
         body::before {
             content: '';
             position: absolute;
@@ -39,144 +51,778 @@
             background: rgba(5, 5, 20, 0.25);
             z-index: 0;
         }
+
         #pageSpotlight {
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
             background: radial-gradient(650px circle at var(--page-spot-x, 50%) var(--page-spot-y, 50%), rgba(37, 99, 235, 0.14), transparent 60%);
-            opacity: 0; transition: opacity 0.4s ease;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        #pageSpotlight.active { opacity: 1; }
+
+        #pageSpotlight.active {
+            opacity: 1;
+        }
+
         .container {
-            position: relative; z-index: 1;
-            width: 100%; max-width: 480px; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .step-panel { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+
+        .step-panel {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
         .step-panel.active { display: flex; }
-        .logo-area { text-align: center; margin-bottom: 22px; }
+
+        .logo-area {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
         .logo-area .badge-ring {
-            width: 58px; height: 58px; margin: 0 auto 10px auto;
-            border: 2px solid var(--gold); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--gold); background: var(--gold-soft);
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 10px auto;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            background: var(--gold-soft);
             box-shadow: 0 0 22px rgba(37, 99, 235, 0.25);
         }
-        .logo-area h1 { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; }
-        .logo-area span { color: var(--gold); display: block; font-size: 0.75rem; letter-spacing: 5px; font-weight: 600; margin-top: 2px; font-family: 'Oswald', sans-serif; }
+
+        .logo-area h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--floodlight);
+        }
+
+        .logo-area span {
+            color: var(--gold);
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            font-weight: 600;
+            margin-top: 2px;
+            font-family: 'Oswald', sans-serif;
+        }
+
         .glass-card {
             background: linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
-            background-image: radial-gradient(circle, rgba(147, 197, 253, 0.35) 1px, transparent 1px), radial-gradient(circle, rgba(219, 234, 254, 0.25) 1px, transparent 1px), linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
+            background-image:
+                radial-gradient(circle, rgba(147, 197, 253, 0.35) 1px, transparent 1px),
+                radial-gradient(circle, rgba(219, 234, 254, 0.25) 1px, transparent 1px),
+                linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
             background-size: 20px 20px, 20px 20px, 100% 100%;
             background-position: 0 0, 10px 10px, 0 0;
             border: 2px solid #1e40af;
-            border-top-right-radius: 1.5em; border-bottom-left-radius: 1.5em;
-            border-top-left-radius: 6px; border-bottom-right-radius: 6px;
-            padding: 36px 28px; width: 100%;
-            box-shadow: 10px 10px 20px rgba(30, 58, 138, 0.5), -10px -10px 20px rgba(59, 130, 246, 0.15), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.4);
-            text-align: center; position: relative; overflow: hidden; transition: all 0.25s ease;
+            border-top-right-radius: 1.5em;
+            border-bottom-left-radius: 1.5em;
+            border-top-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            padding: 36px 28px;
+            width: 100%;
+            box-shadow:
+                10px 10px 20px rgba(30, 58, 138, 0.5),
+                -10px -10px 20px rgba(59, 130, 246, 0.15),
+                inset 2px 2px 5px rgba(219, 234, 254, 0.6),
+                inset -2px -2px 5px rgba(30, 58, 138, 0.4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s ease;
         }
-        .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 60%; background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent); pointer-events: none; }
-        .glass-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(450px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(34, 211, 238, 0.22), transparent 55%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; z-index: 3; }
-        .glass-card.spotlight-active::after { opacity: 1; }
-        .card-topbar { position: absolute; top: 0; left: 0; right: 0; height: 3.2em; background: linear-gradient(90deg, #3b82f6, #ffffff); box-shadow: inset 0 -6px 10px rgba(30, 58, 138, 0.3); border-top-right-radius: 1.3em; z-index: 1; }
-        .icon-wrapper, .glass-card h2, .glass-card p.subtitle { position: relative; z-index: 2; }
-        .glass-card:hover { border-color: #60a5fa; transform: translateY(-2px); box-shadow: 10px 10px 24px rgba(30, 58, 138, 0.55), -10px -10px 24px rgba(147, 197, 253, 0.35), inset 3px 3px 6px rgba(219, 234, 254, 0.65), inset -3px -3px 6px rgba(30, 58, 138, 0.45); }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 60%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
+            pointer-events: none;
+        }
+
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(450px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(34, 211, 238, 0.22), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .glass-card.spotlight-active::after {
+            opacity: 1;
+        }
+
+        .card-topbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3.2em;
+            background: linear-gradient(90deg, #3b82f6, #ffffff);
+            box-shadow: inset 0 -6px 10px rgba(30, 58, 138, 0.3);
+            border-top-right-radius: 1.3em;
+            z-index: 1;
+        }
+
+        .icon-wrapper, .glass-card h2, .glass-card p.subtitle {
+            position: relative;
+            z-index: 2;
+        }
+
+        .glass-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow:
+                10px 10px 24px rgba(30, 58, 138, 0.55),
+                -10px -10px 24px rgba(147, 197, 253, 0.35),
+                inset 3px 3px 6px rgba(219, 234, 254, 0.65),
+                inset -3px -3px 6px rgba(30, 58, 138, 0.45);
+        }
+
         .icon-wrapper {
-            width: 68px; height: 68px; margin: 0 auto 20px auto;
-            background: var(--pitch-black); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.08); font-size: 30px;
-            position: relative; transition: box-shadow 0.3s ease, transform 0.3s ease;
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 20px auto;
+            background: var(--pitch-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            font-size: 30px;
+            position: relative;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .icon-wrapper:hover { box-shadow: 0 0 30px rgba(37, 99, 235, 0.45); transform: scale(1.06); }
+
+        .icon-wrapper:hover {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.45);
+            transform: scale(1.06);
+        }
+
         .icon-discord { color: var(--discord); background: rgba(255,255,255,0.5); border-color: rgba(88,101,242,0.4); }
         .icon-roblox { color: #1e3a5f; background: rgba(255,255,255,0.5); border-color: rgba(30,58,138,0.35); }
         .icon-success { color: #1a5c2e; background: rgba(255,255,255,0.6); border-color: rgba(26,92,46,0.4); box-shadow: 0 0 25px rgba(26,92,46,0.25); }
-        .glass-card h2 { font-family: 'Oswald', sans-serif; font-size: 1.35rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase; color: var(--card-gold-text); text-shadow: 0 1px 0 rgba(255,255,255,0.25); }
-        .glass-card p.subtitle { font-size: 0.85rem; color: #3a5a8c; margin-bottom: 26px; }
-        .btn {
-            border: none; width: 100%; padding: 14px; border-radius: 10px;
-            font-size: 0.95rem; font-weight: 600; letter-spacing: 0.3px;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            cursor: pointer; transition: all 0.2s ease; color: white;
-            margin-bottom: 10px; font-family: 'Inter', sans-serif;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.35); position: relative; overflow: hidden;
+
+        .glass-card h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            color: var(--card-gold-text);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.25);
         }
-        .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
-        .btn-discord { background: linear-gradient(to top, #4752c4 0%, #5865f2 60%, #6c76f5 100%); border: 1px solid #7289ff; box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35); }
-        .btn-discord:hover:not(:disabled) { box-shadow: 0 4px 3px 1px rgba(114, 137, 255, 0.25), 0 6px 14px rgba(88, 101, 242, 0.45), inset 0 0 3px 3px rgba(114, 137, 255, 0.35); transform: translateY(-2px); }
+
+        .glass-card p.subtitle {
+            font-size: 0.85rem;
+            color: #3a5a8c;
+            margin-bottom: 26px;
+        }
+
+        .btn {
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.55), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .btn:hover:not(:disabled)::after {
+            opacity: 1;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-discord {
+            background: linear-gradient(to top, #4752c4 0%, #5865f2 60%, #6c76f5 100%);
+            border: 1px solid #7289ff;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
+        }
+        .btn-discord:hover:not(:disabled) {
+            box-shadow:
+                0 4px 3px 1px rgba(114, 137, 255, 0.25),
+                0 6px 14px rgba(88, 101, 242, 0.45),
+                inset 0 0 3px 3px rgba(114, 137, 255, 0.35);
+            transform: translateY(-2px);
+        }
+        .btn-discord:active:not(:disabled) {
+            box-shadow:
+                inset 0 0 5px 3px rgba(30, 35, 90, 0.6),
+                inset 0 0 30px rgba(20, 24, 70, 0.5);
+            transform: translateY(0);
+        }
+
         .btn-purple, .btn-blue {
             background: linear-gradient(135deg, #eff6ff, #bfdbfe, #93c5fd);
-            color: var(--card-gold-text); text-shadow: none;
-            box-shadow: 6px 6px 12px rgba(30, 58, 138, 0.45), -6px -6px 12px rgba(147, 197, 253, 0.4), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.35);
+            border: 0px solid rgba(37, 99, 235, 0);
+            color: var(--card-gold-text);
+            text-shadow: none;
+            box-shadow:
+                6px 6px 12px rgba(30, 58, 138, 0.45),
+                -6px -6px 12px rgba(147, 197, 253, 0.4),
+                inset 2px 2px 5px rgba(219, 234, 254, 0.6),
+                inset -2px -2px 5px rgba(30, 58, 138, 0.35);
         }
-        .btn-purple:hover:not(:disabled), .btn-blue:hover:not(:disabled) { transform: translateY(-2px); }
-        .input-wrapper { display: flex; align-items: center; background: transparent; border-radius: 1rem; padding: 0; gap: 0.4rem; margin-bottom: 20px; }
-        .avatar-preview {
-            width: 44px; height: 44px; background: linear-gradient(135deg, #93c5fd, #3b82f6);
+        .btn-purple:hover:not(:disabled), .btn-blue:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow:
+                8px 8px 16px rgba(30, 58, 138, 0.5),
+                -8px -8px 16px rgba(147, 197, 253, 0.45),
+                inset 2px 2px 5px rgba(219, 234, 254, 0.6),
+                inset -2px -2px 5px rgba(30, 58, 138, 0.4);
+        }
+        .btn-purple:active:not(:disabled), .btn-blue:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow:
+                inset 4px 4px 8px rgba(30, 58, 138, 0.5),
+                inset -4px -4px 8px rgba(147, 197, 253, 0.4);
+        }
+        .btn-purple::after, .btn-blue::after {
+            background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.5), transparent 70%);
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border-radius: 1rem;
+            box-shadow: none;
+            padding: 0;
+            gap: 0.4rem;
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper .avatar-preview {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #93c5fd, #3b82f6);
             border-radius: 0.8rem;
-            box-shadow: 4px 4px 8px rgba(30, 58, 138, 0.4), -4px -4px 8px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-size: 20px; color: hsl(213, 90%, 92%); overflow: hidden;
+            box-shadow:
+                4px 4px 8px rgba(30, 58, 138, 0.4),
+                -4px -4px 8px rgba(147, 197, 253, 0.4),
+                inset 2px 2px 4px rgba(30, 58, 138, 0.35),
+                inset -2px -2px 4px rgba(219, 234, 254, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 20px;
+            color: hsl(213, 90%, 92%);
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.25s ease;
         }
-        .avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .input-wrapper .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            animation: avatarFadeIn 0.25s ease;
+        }
+
+        .input-wrapper .avatar-preview.loading {
+            animation: avatarPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes avatarFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.55; }
+        }
+
         .input-wrapper input {
-            border-radius: 12px; background: linear-gradient(135deg, #93c5fd, #3b82f6);
-            box-shadow: 6px 6px 12px rgba(30, 58, 138, 0.45), -6px -6px 12px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5);
-            width: 100%; padding: 14px 16px; border: none; font-weight: bold;
-            color: hsl(213, 90%, 92%); font-size: 16px; outline: none; font-family: 'Inter', sans-serif;
-            transition: box-shadow 0.4s cubic-bezier(0.5, 0, 0.1, 1);
+            border-radius: 12px;
+            background: linear-gradient(135deg, #93c5fd, #3b82f6);
+            box-shadow:
+                6px 6px 12px rgba(30, 58, 138, 0.45),
+                -6px -6px 12px rgba(147, 197, 253, 0.4),
+                inset 2px 2px 4px rgba(30, 58, 138, 0.35),
+                inset -2px -2px 4px rgba(219, 234, 254, 0.5);
+            width: 100%;
+            flex-basis: 100%;
+            padding: 14px 16px;
+            border: none;
+            font-weight: bold;
+            color: hsl(213, 90%, 92%);
+            font-size: 16px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            transition:
+                box-shadow 0.4s cubic-bezier(0.5, 0, 0.1, 1),
+                background 0.4s cubic-bezier(0.5, 0, 0.1, 1);
         }
+
+        .input-wrapper input:focus {
+            outline: none;
+            background: linear-gradient(135deg, #93c5fd, #3b82f6);
+            box-shadow:
+                4px 4px 8px rgba(30, 58, 138, 0.5),
+                -4px -4px 8px rgba(147, 197, 253, 0.45),
+                inset 4px 4px 8px rgba(30, 58, 138, 0.4),
+                inset -4px -4px 8px rgba(219, 234, 254, 0.55);
+        }
+
         .input-wrapper input::placeholder { color: rgba(30, 58, 138, 0.55); font-weight: 600; }
-        .code-box { background: #000000; border-radius: 15px; padding: 15px 20px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.15); cursor: pointer; position: relative; transition: border-color 0.3s; }
-        .code-box:hover { border-color: rgba(96, 165, 250, 0.6); }
-        .code-box h3 { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; letter-spacing: 3px; user-select: all; color: #ffffff; }
-        .steps-row { display: flex; justify-content: center; align-items: flex-start; gap: 4px; margin-top: 22px; }
-        .step-item { display: flex; flex-direction: column; align-items: center; width: 78px; }
-        .step-circle { width: 34px; height: 34px; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; font-family: 'Oswald', sans-serif; color: var(--muted); background: var(--pitch-black); transition: all 0.3s; z-index: 1; }
-        .step-circle.done { background: #22C55E; border-color: #22C55E; color: #fff; }
-        .step-text { font-size: 9.5px; color: var(--muted); margin-top: 8px; max-width: 82px; line-height: 1.25; text-align: center; text-transform: uppercase; letter-spacing: 0.4px; }
-        .step-arrow { color: rgba(255, 255, 255, 0.15); margin: 0 2px; font-size: 11px; margin-top: 15px; }
-        .msg { font-size: 0.8rem; margin-top: 10px; display: none; }
+
+        @media (max-width: 500px) {
+            .input-wrapper {
+                flex-direction: column;
+            }
+            .input-wrapper input {
+                border-radius: 0.8rem;
+            }
+        }
+
+
+        .code-box {
+            background: #000000;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .code-box:hover {
+            border-color: rgba(96, 165, 250, 0.6);
+        }
+
+        .code-box h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            user-select: all;
+            color: #ffffff;
+        }
+
+        .success-toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translate(-50%, -20px);
+            width: min(320px, calc(100vw - 40px));
+            padding: 12px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            background: #22C55E;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            font-family: 'Inter', sans-serif;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .success-toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+
+        .success-toast__icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transform: translateY(-1px);
+            margin-right: 10px;
+        }
+
+        .success-toast__icon path { fill: #fff; }
+
+        .success-toast__title {
+            font-weight: 500;
+            font-size: 13.5px;
+            line-height: 1.35;
+            color: #fff;
+        }
+
+        .success-toast__close {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            margin-left: auto;
+            flex-shrink: 0;
+            padding-left: 10px;
+            opacity: 0.85;
+            transition: opacity 0.2s ease;
+        }
+
+        .success-toast__close:hover { opacity: 1; }
+        .success-toast__close path { fill: #fff; }
+
+        .steps-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 4px;
+            margin-top: 22px;
+            position: relative;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 78px;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            color: var(--muted);
+            background: var(--pitch-black);
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .step-circle.done {
+            background: #22C55E;
+            border-color: #22C55E;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .step-text {
+            font-size: 9.5px;
+            color: var(--muted);
+            margin-top: 8px;
+            max-width: 82px;
+            line-height: 1.25;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .step-arrow {
+            color: rgba(255, 255, 255, 0.15);
+            margin: 0 2px;
+            font-size: 11px;
+            margin-top: 15px;
+        }
+
+        .msg {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            display: none;
+        }
         .msg.show { display: block; }
         .msg-error { color: var(--error); }
         .msg-success { color: var(--grass); }
-        .error-toast, .success-toast { position: fixed; top: 24px; left: 50%; transform: translate(-50%, -20px); width: min(320px, calc(100vw - 40px)); padding: 12px; display: flex; align-items: center; justify-content: flex-start; border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); font-family: 'Inter', sans-serif; z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
-        .error-toast { background: #EF665B; }
-        .success-toast { background: #22C55E; }
-        .error-toast.show, .success-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-        .error-toast__icon, .success-toast__icon { width: 20px; height: 20px; flex-shrink: 0; margin-right: 10px; }
-        .error-toast__title, .success-toast__title { font-weight: 500; font-size: 13.5px; color: #fff; }
-        .error-toast__close, .success-toast__close { width: 18px; height: 18px; cursor: pointer; margin-left: auto; flex-shrink: 0; padding-left: 10px; opacity: 0.85; }
-        .error-toast__close:hover, .success-toast__close:hover { opacity: 1; }
-        .spinner { display: none; --uib-size: 34px; --uib-color: #ffffff; --uib-speed: 1.4s; --uib-stroke: 4px; --uib-bg-opacity: 0.25; position: relative; height: var(--uib-stroke); width: var(--uib-size); border-radius: calc(var(--uib-stroke) / 2); overflow: hidden; transform: translate3d(0, 0, 0); flex-shrink: 0; }
-        .spinner::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: var(--uib-color); opacity: var(--uib-bg-opacity); }
-        .spinner::after { content: ''; height: 100%; width: 100%; border-radius: calc(var(--uib-stroke) / 2); animation: wobble var(--uib-speed) ease-in-out infinite; transform: translateX(-95%); background-color: var(--uib-color); }
-        @keyframes wobble { 0%, 100% { transform: translateX(-95%); } 50% { transform: translateX(95%); } }
-        .official-badge { margin-top: 18px; background: var(--gold-soft); border: 1px solid rgba(37, 99, 235, 0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); display: inline-block; font-family: 'Oswald', sans-serif; }
-        .username-display { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px; padding: 6px 16px; display: inline-block; margin-bottom: 20px; font-size: 0.85rem; color: var(--grass); font-family: 'JetBrains Mono', monospace; }
-        .step-indicator { margin-top: 20px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); padding: 9px 24px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); display: inline-block; font-family: 'Oswald', sans-serif; }
-        .back-link { color: rgba(30, 58, 138, 0.5); font-size: 0.78rem; cursor: pointer; margin-top: 8px; display: inline-block; transition: color 0.2s; text-decoration: none; font-family: 'Inter', sans-serif; }
+
+        .error-toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translate(-50%, -20px);
+            width: min(320px, calc(100vw - 40px));
+            padding: 12px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            background: #EF665B;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            font-family: 'Inter', sans-serif;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .error-toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+
+        .error-toast__icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transform: translateY(-1px);
+            margin-right: 10px;
+        }
+
+        .error-toast__icon path { fill: #fff; }
+
+        .error-toast__title {
+            font-weight: 500;
+            font-size: 13.5px;
+            line-height: 1.35;
+            color: #fff;
+        }
+
+        .error-toast__close {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            margin-left: auto;
+            flex-shrink: 0;
+            padding-left: 10px;
+            opacity: 0.85;
+            transition: opacity 0.2s ease;
+        }
+
+        .error-toast__close:hover { opacity: 1; }
+        .error-toast__close path { fill: #fff; }
+
+        .spinner {
+            display: none;
+            --uib-size: 34px;
+            --uib-color: #ffffff;
+            --uib-speed: 1.4s;
+            --uib-stroke: 4px;
+            --uib-bg-opacity: 0.25;
+            position: relative;
+            height: var(--uib-stroke);
+            width: var(--uib-size);
+            border-radius: calc(var(--uib-stroke) / 2);
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+            flex-shrink: 0;
+        }
+        .spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--uib-color);
+            opacity: var(--uib-bg-opacity);
+        }
+        .spinner::after {
+            content: '';
+            height: 100%;
+            width: 100%;
+            border-radius: calc(var(--uib-stroke) / 2);
+            animation: wobble var(--uib-speed) ease-in-out infinite;
+            transform: translateX(-95%);
+            background-color: var(--uib-color);
+        }
+        .btn-purple .spinner, .btn-blue .spinner {
+            --uib-color: var(--card-gold-text);
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: translateX(-95%); }
+            50% { transform: translateX(95%); }
+        }
+
+        .official-badge {
+            margin-top: 18px;
+            background: var(--gold-soft);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .username-display {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 6px 16px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--grass);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .step-indicator {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 9px 24px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .back-link {
+            color: rgba(30, 58, 138, 0.5);
+            font-size: 0.78rem;
+            cursor: pointer;
+            margin-top: 8px;
+            display: inline-block;
+            transition: color 0.2s;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
         .back-link:hover { color: var(--card-gold-text); }
-        @media (max-width: 600px) { .glass-card { padding: 30px 18px 24px 18px; } .code-box h3 { font-size: 20px; letter-spacing: 2px; } .btn { font-size: 0.88rem; padding: 12px; } .steps-row { transform: scale(0.85); } .logo-area h1 { font-size: 1.5rem; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spinner, .badge-ring { animation: none !important; }
+        }
+
+        html {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="100%" stop-color="rgba(34,211,238,0.55)"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L13 26 L17 24 L13 16 L21 16 Z" fill="url(%23g)" stroke="rgba(37,99,235,0.9)" stroke-width="1.3" stroke-linejoin="round"/></svg>') 3 2, auto;
+        }
+
+        body, a, button, input, .btn, .back-link, .code-box, [onclick] {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="100%" stop-color="rgba(34,211,238,0.75)"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L13 26 L17 24 L13 16 L21 16 Z" fill="url(%23g2)" stroke="rgba(37,99,235,0.9)" stroke-width="1.3" stroke-linejoin="round"/></svg>') 3 2, pointer;
+        }
+
+        .cursor-ripple {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate3d(-50%, -50%, 0);
+            border: 1.5px solid rgba(96, 165, 250, 0.65);
+            background: rgba(37, 99, 235, 0.12);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            animation: cursorRipple 0.6s ease-out forwards;
+        }
+
+        @keyframes cursorRipple {
+            0% {
+                width: 12px;
+                height: 12px;
+                opacity: 0.9;
+            }
+            100% {
+                width: 90px;
+                height: 90px;
+                opacity: 0;
+            }
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .cursor-ripple { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .glass-card { padding: 30px 18px 24px 18px; }
+            .code-box h3 { font-size: 20px; letter-spacing: 2px; }
+            .btn { font-size: 0.88rem; padding: 12px; }
+            .steps-row { transform: scale(0.85); }
+            .logo-area h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body id="mainBody">
 
     <div class="error-toast" id="errorToast">
-        <div class="error-toast__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg></div>
+        <div class="error-toast__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+        </div>
         <div class="error-toast__title" id="errorToastTitle">Algo deu errado</div>
-        <div class="error-toast__close" onclick="hideErrorToast()"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#fff" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div>
+        <div class="error-toast__close" onclick="hideErrorToast()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#fff" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg>
+        </div>
     </div>
 
     <div class="success-toast" id="successToast">
-        <div class="success-toast__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="M12 2C6.4771525 2 2 6.4771525 2 12s4.4771525 10 10 10 10-4.4771525 10-10S17.5228475 2 12 2zm5.3536 8.1464-6 6c-.09763.09763-.21376.17505-.34133.22778-.12756.05273-.26461.07992-.40227.07992-.13766 0-.27471-.02719-.40227-.07992-.12757-.05273-.2437-.13015-.34133-.22778l-3-3c-.19527-.19527-.30503-.46011-.30503-.7364s.10976-.54113.30503-.7364c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503l2.29289 2.29289 5.29289-5.29289c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503c.19527.19527.30503.46011.30503.7364s-.10976.54113-.30503.7364z"></path></svg></div>
+        <div class="success-toast__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="M12 2C6.4771525 2 2 6.4771525 2 12s4.4771525 10 10 10 10-4.4771525 10-10S17.5228475 2 12 2zm5.3536 8.1464-6 6c-.09763.09763-.21376.17505-.34133.22778-.12756.05273-.26461.07992-.40227.07992-.13766 0-.27471-.02719-.40227-.07992-.12757-.05273-.2437-.13015-.34133-.22778l-3-3c-.19527-.19527-.30503-.46011-.30503-.7364s.10976-.54113.30503-.7364c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503l2.29289 2.29289 5.29289-5.29289c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503c.19527.19527.30503.46011.30503.7364s-.10976.54113-.30503.7364z"></path></svg>
+        </div>
         <div class="success-toast__title" id="successToastTitle">Código copiado!</div>
-        <div class="success-toast__close" onclick="hideSuccessToast()"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#fff" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div>
+        <div class="success-toast__close" onclick="hideSuccessToast()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#fff" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg>
+        </div>
     </div>
 
     <div id="pageSpotlight"></div>
 
     <div class="container">
+
         <div class="logo-area">
             <div class="badge-ring"><i class="fa-solid fa-futbol"></i></div>
             <h1>Free Agents</h1>
@@ -187,34 +833,46 @@
         <div class="step-panel active" id="step1">
             <div class="glass-card">
                 <div class="card-topbar"></div>
-                <div class="icon-wrapper icon-discord"><i class="fa-brands fa-discord"></i></div>
+                <div class="icon-wrapper icon-discord">
+                    <i class="fa-brands fa-discord"></i>
+                </div>
                 <h2><i class="fa-brands fa-discord" style="color:#5865F2; margin-right:8px;"></i>Bem-vindo de volta!</h2>
                 <p class="subtitle">Entre com Discord para começar sua jornada.</p>
+
                 <button class="btn btn-discord" id="btnDiscord" onclick="loginDiscord()">
                     <i class="fa-brands fa-discord"></i>
                     <span id="btnDiscordText">Entrar com Discord</span>
                     <span class="spinner" id="spinnerDiscord"></span>
                 </button>
             </div>
-            <div class="official-badge"><i class="fa-solid fa-circle-check"></i> Plataforma Oficial Free Agents - MPS</div>
+            <div class="official-badge">
+                <i class="fa-solid fa-circle-check"></i> Plataforma Oficial Free Agents - MPS
+            </div>
         </div>
 
         <!-- ETAPA 2: CONECTAR ROBLOX -->
         <div class="step-panel" id="step2">
             <div class="glass-card">
                 <div class="card-topbar"></div>
-                <div class="icon-wrapper icon-roblox"><i class="fa-solid fa-gamepad"></i></div>
+                <div class="icon-wrapper icon-roblox">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
                 <h2>Conecte sua conta Roblox</h2>
                 <p class="subtitle">Digite seu nome de usuário para verificar.</p>
+
                 <div class="input-wrapper">
                     <div class="avatar-preview" id="avatarPreview">
-                        <i class="fas fa-face-smile"></i>
+                        <i class="fas fa-face-smile" id="avatarPreviewIcon"></i>
                     </div>
-                    <input type="text" id="robloxUsername" placeholder="@username" oninput="searchRobloxAvatar()" onkeydown="if(event.key==='Enter') connectRoblox()">
+                    <input type="text" id="robloxUsername" placeholder="@username" oninput="onUsernameInput()" onkeydown="if(event.key==='Enter') connectRoblox()">
                 </div>
+
                 <button class="btn btn-purple" id="btnRoblox" onclick="connectRoblox()">
-                    <i class="fa-solid fa-link"></i><span id="btnRobloxText">CONTINUAR</span><span class="spinner" id="spinnerRoblox"></span>
+                    <i class="fa-solid fa-link"></i>
+                    <span id="btnRobloxText">CONTINUAR</span>
+                    <span class="spinner" id="spinnerRoblox"></span>
                 </button>
+
                 <span class="back-link" onclick="goToStep(1)">← Voltar</span>
             </div>
             <div class="step-indicator">Etapa 2 de 3</div>
@@ -224,21 +882,49 @@
         <div class="step-panel" id="step3">
             <div class="glass-card">
                 <div class="card-topbar"></div>
-                <div class="icon-wrapper icon-roblox"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="icon-wrapper icon-roblox">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
                 <h2>Verifique sua conta Roblox</h2>
                 <p class="subtitle">Cole este código na sua Bio do Roblox</p>
-                <div class="username-display"><i class="fa-solid fa-gamepad"></i> @<span id="displayUsername"></span></div>
-                <div class="code-box" id="codeBox" onclick="copyCode()" title="Clique para copiar"><h3 id="verifyCode">FA-MPS-XXXX</h3></div>
-                <button class="btn btn-purple" id="btnCopy" onclick="copyCode()"><i class="far fa-copy"></i> Copiar código</button>
-                <button class="btn btn-blue" id="btnVerify" onclick="verifyBio()"><i class="fas fa-check-circle"></i><span id="btnVerifyText">Já colei, verificar agora</span><span class="spinner" id="spinnerVerify"></span></button>
+
+                <div class="username-display">
+                    <i class="fa-solid fa-gamepad"></i> @<span id="displayUsername"></span>
+                </div>
+
+                <div class="code-box" id="codeBox" onclick="copyCode()" title="Clique para copiar">
+                    <h3 id="verifyCode">FA-MPS-XXXX</h3>
+                </div>
+
+                <button class="btn btn-purple" id="btnCopy" onclick="copyCode()">
+                    <i class="far fa-copy"></i> Copiar código
+                </button>
+
+                <button class="btn btn-blue" id="btnVerify" onclick="verifyBio()">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="btnVerifyText">Já colei, verificar agora</span>
+                    <span class="spinner" id="spinnerVerify"></span>
+                </button>
+
                 <span class="back-link" onclick="goToStep(2)">← Voltar</span>
+
                 <div class="msg msg-success" id="successVerify"></div>
+
                 <div class="steps-row">
-                    <div class="step-item" id="stepCircle1"><div class="step-circle">1</div><div class="step-text">Copie o código</div></div>
+                    <div class="step-item" id="stepCircle1">
+                        <div class="step-circle">1</div>
+                        <div class="step-text">Copie o código</div>
+                    </div>
                     <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
-                    <div class="step-item" id="stepCircle2"><div class="step-circle">2</div><div class="step-text">Cole na Bio do Roblox</div></div>
+                    <div class="step-item" id="stepCircle2">
+                        <div class="step-circle">2</div>
+                        <div class="step-text">Cole na Bio do Roblox</div>
+                    </div>
                     <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
-                    <div class="step-item" id="stepCircle3"><div class="step-circle">3</div><div class="step-text">Salve e verifique</div></div>
+                    <div class="step-item" id="stepCircle3">
+                        <div class="step-circle">3</div>
+                        <div class="step-text">Salve e verifique</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -247,27 +933,105 @@
         <div class="step-panel" id="step4">
             <div class="glass-card">
                 <div class="card-topbar"></div>
-                <div class="icon-wrapper icon-success"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="icon-wrapper icon-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
                 <h2>Tudo pronto!</h2>
                 <p class="subtitle">Sua conta foi verificada com sucesso.</p>
                 <p style="color: var(--grass); font-weight: 600; font-size: 1.05rem; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Bem-vindo ao Free Agents — MPS!</p>
             </div>
         </div>
+
     </div>
 
     <script>
         const API_URL = "https://free-agents-backend.onrender.com";
+
         function setBackground(step) {}
+
+        // ========== AVATAR PREVIEW DO ROBLOX (VIA BACKEND - SEM CORS) ==========
+        let avatarDebounce = null;
+        let avatarRequestId = 0;
+
+        function onUsernameInput() {
+            const username = document.getElementById("robloxUsername").value.trim();
+            clearTimeout(avatarDebounce);
+
+            if (!username) {
+                resetAvatarPreview();
+                return;
+            }
+
+            avatarDebounce = setTimeout(() => fetchRobloxAvatar(username), 500);
+        }
+
+        function resetAvatarPreview() {
+            const box = document.getElementById("avatarPreview");
+            box.classList.remove("loading");
+            box.innerHTML = '<i class="fas fa-face-smile" id="avatarPreviewIcon"></i>';
+        }
+
+        async function fetchRobloxAvatar(username) {
+            const box = document.getElementById("avatarPreview");
+            const thisRequest = ++avatarRequestId;
+            box.classList.add("loading");
+
+            try {
+                // Chama o NOSSO backend (sem CORS)
+                const res = await fetch(`${API_URL}/roblox/avatar/${username}`);
+                
+                if (thisRequest !== avatarRequestId) return;
+
+                if (!res.ok) {
+                    resetAvatarPreview();
+                    return;
+                }
+
+                const data = await res.json();
+
+                if (data && data.imageUrl) {
+                    box.classList.remove("loading");
+                    box.innerHTML = `<img src="${data.imageUrl}" alt="Avatar de ${username}" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-face-smile\\'></i>';">`;
+                } else {
+                    resetAvatarPreview();
+                }
+            } catch (err) {
+                if (thisRequest === avatarRequestId) resetAvatarPreview();
+            }
+        }
 
         // ========== TOASTS ==========
         let errorToastTimeout = null;
-        function showErrorToast(m) { const t = document.getElementById("errorToast"); document.getElementById("errorToastTitle").textContent = m; t.classList.add("show"); clearTimeout(errorToastTimeout); errorToastTimeout = setTimeout(hideErrorToast, 4000); }
-        function hideErrorToast() { document.getElementById("errorToast").classList.remove("show"); clearTimeout(errorToastTimeout); }
-        let successToastTimeout = null;
-        function showSuccessToast(m) { const t = document.getElementById("successToast"); document.getElementById("successToastTitle").textContent = m; t.classList.add("show"); clearTimeout(successToastTimeout); successToastTimeout = setTimeout(hideSuccessToast, 2500); }
-        function hideSuccessToast() { document.getElementById("successToast").classList.remove("show"); clearTimeout(successToastTimeout); }
+        function showErrorToast(message) {
+            const toast = document.getElementById("errorToast");
+            const title = document.getElementById("errorToastTitle");
+            title.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(errorToastTimeout);
+            errorToastTimeout = setTimeout(hideErrorToast, 4000);
+        }
+        function hideErrorToast() {
+            document.getElementById("errorToast").classList.remove("show");
+            clearTimeout(errorToastTimeout);
+        }
 
-        let currentToken = null, currentRobloxUser = null, generatedCode = null;
+        let successToastTimeout = null;
+        function showSuccessToast(message) {
+            const toast = document.getElementById("successToast");
+            const title = document.getElementById("successToastTitle");
+            title.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(successToastTimeout);
+            successToastTimeout = setTimeout(hideSuccessToast, 2500);
+        }
+        function hideSuccessToast() {
+            document.getElementById("successToast").classList.remove("show");
+            clearTimeout(successToastTimeout);
+        }
+
+        let currentToken = null;
+        let currentRobloxUser = null;
+        let generatedCode = null;
 
         function goToStep(step) {
             document.querySelectorAll(".step-panel").forEach(p => p.classList.remove("active"));
@@ -277,82 +1041,151 @@
 
         // ========== LOGIN DISCORD ==========
         async function loginDiscord() {
-            const btn = document.getElementById("btnDiscord"), btnText = document.getElementById("btnDiscordText"), spinner = document.getElementById("spinnerDiscord");
-            btn.disabled = true; btnText.textContent = "Redirecionando..."; spinner.style.display = "inline-block"; hideErrorToast();
+            const btn = document.getElementById("btnDiscord");
+            const btnText = document.getElementById("btnDiscordText");
+            const spinner = document.getElementById("spinnerDiscord");
+
+            btn.disabled = true;
+            btnText.textContent = "Redirecionando...";
+            spinner.style.display = "inline-block";
+            hideErrorToast();
+
             try {
                 const res = await fetch(`${API_URL}/auth/discord/login`);
                 const data = await res.json();
                 window.location.href = data.url;
             } catch (err) {
                 showErrorToast("Erro ao conectar com o servidor.");
-                btn.disabled = false; btnText.textContent = "Entrar com Discord"; spinner.style.display = "none";
+                btn.disabled = false;
+                btnText.textContent = "Entrar com Discord";
+                spinner.style.display = "none";
             }
         }
 
         function checkAuth() {
-            const token = new URLSearchParams(window.location.search).get("token");
-            if (token) { currentToken = token; localStorage.setItem("fa_token", token); window.history.replaceState({}, document.title, "/"); goToStep(2); }
-        }
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
 
-        // ========== AVATAR ROBLOX (via backend) ==========
-        let avatarTimeout = null;
-        async function searchRobloxAvatar() {
-            const username = document.getElementById("robloxUsername").value.trim();
-            const avatarEl = document.getElementById("avatarPreview");
-            if (!username) { avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>'; return; }
-            avatarEl.innerHTML = '<div style="width:20px;height:20px;border:2px solid rgba(30,58,138,0.3);border-top-color:#1e3a5f;border-radius:50%;animation:spin 0.8s linear infinite;"></div>';
-            clearTimeout(avatarTimeout);
-            avatarTimeout = setTimeout(async () => {
-                try {
-                    const res = await fetch(`${API_URL}/roblox/avatar/${username}`);
-                    if (!res.ok) { avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>'; return; }
-                    const data = await res.json();
-                    avatarEl.innerHTML = `<img src="${data.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:0.8rem;object-fit:cover;" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-face-smile\\'></i>';">`;
-                } catch (err) { avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>'; }
-            }, 600);
+            if (token) {
+                currentToken = token;
+                localStorage.setItem("fa_token", token);
+                window.history.replaceState({}, document.title, "/");
+                goToStep(2);
+            }
         }
-        const styleEl = document.createElement('style');
-        styleEl.textContent = '@keyframes spin{to{transform:rotate(360deg);}}';
-        document.head.appendChild(styleEl);
 
         // ========== ETAPA 2 ==========
         function connectRoblox() {
             const username = document.getElementById("robloxUsername").value.trim();
-            const btn = document.getElementById("btnRoblox"), btnText = document.getElementById("btnRobloxText"), spinner = document.getElementById("spinnerRoblox");
-            if (!username) { showErrorToast("Digite um nome de usuário válido."); return; }
-            hideErrorToast(); btn.disabled = true; btnText.textContent = "Gerando código..."; spinner.style.display = "inline-block";
+            const btn = document.getElementById("btnRoblox");
+            const btnText = document.getElementById("btnRobloxText");
+            const spinner = document.getElementById("spinnerRoblox");
+
+            if (!username) {
+                showErrorToast("Digite um nome de usuário válido.");
+                return;
+            }
+
+            hideErrorToast();
+            btn.disabled = true;
+            btnText.textContent = "Gerando código...";
+            spinner.style.display = "inline-block";
+
             generatedCode = "FA-MPS-" + Math.random().toString(36).substring(2, 6).toUpperCase();
             currentRobloxUser = username;
+
             document.getElementById("displayUsername").textContent = username;
             document.getElementById("verifyCode").textContent = generatedCode;
-            setTimeout(() => { btn.disabled = false; btnText.textContent = "CONTINUAR"; spinner.style.display = "none"; goToStep(3); }, 800);
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btnText.textContent = "CONTINUAR";
+                spinner.style.display = "none";
+                goToStep(3);
+            }, 800);
         }
 
         // ========== ETAPA 3 ==========
         function copyCode() {
-            navigator.clipboard.writeText(generatedCode).then(() => { showSuccessToast("Código copiado!"); document.getElementById("stepCircle1").querySelector(".step-circle").classList.add("done"); });
-        }
-        async function verifyBio() {
-            const btn = document.getElementById("btnVerify"), btnText = document.getElementById("btnVerifyText"), spinner = document.getElementById("spinnerVerify"), success = document.getElementById("successVerify");
-            btn.disabled = true; btnText.textContent = "Verificando..."; spinner.style.display = "inline-block"; hideErrorToast(); success.classList.remove("show");
-            setTimeout(() => { success.innerHTML = '<i class="fa-solid fa-check-circle"></i> Conta verificada!'; success.classList.add("show"); document.getElementById("stepCircle2").querySelector(".step-circle").classList.add("done"); document.getElementById("stepCircle3").querySelector(".step-circle").classList.add("done"); setTimeout(() => goToStep(4), 1200); }, 700);
-        }
-
-        // ========== SPOTLIGHTS ==========
-        function initSpotlight() {
-            document.querySelectorAll('.glass-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => { const r = card.getBoundingClientRect(); card.style.setProperty('--spot-x', `${e.clientX - r.left}px`); card.style.setProperty('--spot-y', `${e.clientY - r.top}px`); card.classList.add('spotlight-active'); });
-                card.addEventListener('mouseleave', () => card.classList.remove('spotlight-active'));
+            navigator.clipboard.writeText(generatedCode).then(() => {
+                showSuccessToast("Código copiado!");
+                document.getElementById("stepCircle1").querySelector(".step-circle").classList.add("done");
             });
         }
+
+        async function verifyBio() {
+            const btn = document.getElementById("btnVerify");
+            const btnText = document.getElementById("btnVerifyText");
+            const spinner = document.getElementById("spinnerVerify");
+            const success = document.getElementById("successVerify");
+
+            btn.disabled = true;
+            btnText.textContent = "Verificando...";
+            spinner.style.display = "inline-block";
+            hideErrorToast();
+            success.classList.remove("show");
+
+            setTimeout(() => {
+                success.innerHTML = '<i class="fa-solid fa-check-circle"></i> Conta verificada!';
+                success.classList.add("show");
+                document.getElementById("stepCircle2").querySelector(".step-circle").classList.add("done");
+                document.getElementById("stepCircle3").querySelector(".step-circle").classList.add("done");
+                setTimeout(() => goToStep(4), 1200);
+            }, 700);
+        }
+
+        // ========== SPOTLIGHTS & RIPPLE ==========
+        function initSpotlight() {
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--spot-x', `${x}px`);
+                    card.style.setProperty('--spot-y', `${y}px`);
+                    card.classList.add('spotlight-active');
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.classList.remove('spotlight-active');
+                });
+            });
+        }
+
         function initPageSpotlight() {
             const spot = document.getElementById('pageSpotlight');
             if (!spot) return;
-            window.addEventListener('mousemove', (e) => { spot.style.setProperty('--page-spot-x', `${e.clientX}px`); spot.style.setProperty('--page-spot-y', `${e.clientY}px`); spot.classList.add('active'); });
-            document.addEventListener('mouseleave', () => spot.classList.remove('active'));
+            window.addEventListener('mousemove', (e) => {
+                spot.style.setProperty('--page-spot-x', `${e.clientX}px`);
+                spot.style.setProperty('--page-spot-y', `${e.clientY}px`);
+                spot.classList.add('active');
+            });
+            document.addEventListener('mouseleave', () => {
+                spot.classList.remove('active');
+            });
         }
 
-        setBackground(1); checkAuth(); initSpotlight(); initPageSpotlight();
+        function initClickRipple() {
+            document.addEventListener('mousedown', (e) => {
+                spawnRipple(e.clientX, e.clientY);
+            });
+        }
+
+        function spawnRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'cursor-ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            document.body.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        }
+
+        // ========== INIT ==========
+        setBackground(1);
+        checkAuth();
+        initSpotlight();
+        initPageSpotlight();
+        initClickRipple();
     </script>
+
 </body>
 </html>
