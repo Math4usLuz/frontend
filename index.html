@@ -21,7 +21,7 @@
         body::before { content:''; position:absolute; inset:0; background:rgba(5,5,20,0.25); z-index:0; }
         #pageSpotlight { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(650px circle at var(--page-spot-x,50%) var(--page-spot-y,50%), rgba(37,99,235,0.14), transparent 60%); opacity:0; transition:opacity 0.4s ease; }
         #pageSpotlight.active { opacity:1; }
-        .container { position:relative; z-index:1; width:100%; max-width:800px; padding:20px; display:flex; flex-direction:column; align-items:center; }
+        .container { position:relative; z-index:1; width:100%; max-width:900px; padding:20px; display:flex; flex-direction:column; align-items:center; }
         .step-panel { display:none; flex-direction:column; align-items:center; text-align:center; width:100%; }
         .step-panel.active { display:flex; }
         .logo-area { text-align:center; margin-bottom:22px; }
@@ -119,6 +119,22 @@
         .search-input-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif;flex:1; }
         .filter-select-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif; }
 
+        /* ========== MODAL JOGADOR ========== */
+        .player-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease; }
+        .player-modal { background:rgba(15,15,35,0.95);backdrop-filter:blur(20px);border:2px solid rgba(37,99,235,0.3);border-radius:20px;padding:30px;max-width:450px;width:90%;text-align:center;position:relative;animation:slideUp 0.3s ease; }
+        .player-modal .modal-close { position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:color 0.2s; }
+        .player-modal .modal-close:hover { color:#fff; }
+        .player-modal .modal-avatar { width:80px;height:80px;border-radius:18px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;margin:0 auto 16px; }
+        .player-modal h2 { font-family:'Oswald',sans-serif;font-size:1.5rem;margin-bottom:4px; }
+        .player-modal .modal-position { color:#3b82f6;font-weight:600;font-size:0.9rem;margin-bottom:16px; }
+        .player-modal .modal-stats { display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:16px; }
+        .player-modal .modal-stat { text-align:center; }
+        .player-modal .modal-stat .val { font-weight:700;font-size:1.1rem; }
+        .player-modal .modal-stat .lbl { font-size:0.65rem;color:var(--muted);text-transform:uppercase; }
+        .player-modal .modal-info { color:var(--muted);font-size:0.85rem;margin-bottom:6px; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
         @media(max-width:600px) {
             .hub-sidebar { bottom:0; top:auto; left:0; right:0; width:100%!important; height:56px; transform:none; flex-direction:row; justify-content:space-around; border-radius:16px 16px 0 0; padding:0 12px; }
             .hub-sidebar:hover { width:100%!important; height:auto; }
@@ -207,7 +223,7 @@
         function checkAuth(){
             const p=new URLSearchParams(window.location.search);
             const token=p.get("token");
-            const isNew=true; // FORÇA NOVO USUÁRIO
+            const isNew=true;
             if(token){currentToken=token;localStorage.setItem("fa_token",token);window.history.replaceState({},document.title,"/");
                 if(isNew){goToStep(2);}else{goToStep(5);}}
         }
@@ -218,12 +234,19 @@
 
         // ========== HUB ==========
         function loadHub(){
-            const name=currentRobloxUser||"Jogador MPS";
-            document.getElementById("hubName").textContent=name;
+            document.getElementById("hubName").textContent=currentRobloxUser||"Jogador MPS";
             document.getElementById("hubUsername").textContent="@"+(currentRobloxUser||"username");
             const tag=document.getElementById("hubTag");
             if(accountType==="jogador"){tag.innerHTML='<i class="fa-solid fa-futbol"></i> Jogador';}
             else{tag.innerHTML='<i class="fa-solid fa-briefcase"></i> Contratante';}
+
+            // Busca avatar Roblox
+            if(currentRobloxUser){
+                fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`)
+                    .then(r=>r.json())
+                    .then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}})
+                    .catch(()=>{});
+            }
 
             const cards=accountType==="jogador"?[
                 {icon:'fa-solid fa-chart-line',title:'Meus Stats',desc:'Overall, partidas, gols'},
@@ -251,7 +274,7 @@
             const main=document.getElementById("hubMain");
             main.innerHTML=`
                 <div class="profile-header">
-                    <div class="profile-avatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div>
+                    <div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div>
                     <div class="profile-info">
                         <h3>${currentRobloxUser||'Contratante'}</h3>
                         <span class="profile-username">@${currentRobloxUser||'username'}</span>
@@ -259,18 +282,25 @@
                     </div>
                 </div>
                 <div style="display:flex;gap:10px;margin-bottom:16px;">
-                    <input type="text" id="searchPlayer" placeholder="Buscar por nome, posição ou nacionalidade..." class="search-input-hub" oninput="filtrarJogadores()">
+                    <input type="text" id="searchPlayer" placeholder="Buscar por nome ou nacionalidade..." class="search-input-hub" oninput="filtrarJogadores()">
                     <select id="filterPosition" onchange="filtrarJogadores()" class="filter-select-hub">
                         <option value="">Todas Posições</option>
                         <option>Goleiro</option><option>Zagueiro</option><option>Lateral</option>
                         <option>Meio-campo</option><option>Atacante</option>
                     </select>
                 </div>
-                <div id="playersResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+                <div id="playersResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
                 <div class="hub-footer">
-                    <div class="footer-item" onclick="loadHub();document.getElementById('hubMain').innerHTML=document.getElementById('hubMain').innerHTML;window.location.reload();"><i class="fa-solid fa-arrow-left"></i> Voltar</div>
+                    <div class="footer-item" onclick="loadHub();location.reload();"><i class="fa-solid fa-arrow-left"></i> Voltar</div>
                 </div>
             `;
+            // Avatar do contratante
+            if(currentRobloxUser){
+                fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`)
+                    .then(r=>r.json())
+                    .then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}})
+                    .catch(()=>{});
+            }
             carregarJogadores();
         }
 
@@ -294,19 +324,46 @@
             if(!c)return;
             if(filt.length===0){c.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Nenhum jogador encontrado.</p>';return;}
             c.innerHTML=filt.map(p=>`
-                <div class="hub-card" style="text-align:left;padding:16px;">
+                <div class="hub-card" style="text-align:left;padding:16px;" onclick="verJogador(${p.id})">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
                         <div class="avatar-preview" style="width:40px;height:40px;font-size:16px;">${p.initials||p.name.substring(0,2).toUpperCase()}</div>
                         <div><h4 style="margin:0;">${p.name}</h4><p style="margin:0;font-size:0.7rem;color:var(--muted);">${p.position} • ${p.nationality}</p></div>
                     </div>
                     <div style="display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid rgba(255,255,255,0.05);margin-bottom:8px;">
                         <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.overall}</span><br><span style="font-size:0.6rem;color:var(--muted);">OVR</span></div>
-                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.age}</span><br><span style="font-size:0.6rem;color:var(--muted);">IDADE</span></div>
+                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.height}</span><br><span style="font-size:0.6rem;color:var(--muted);">ALTURA</span></div>
                         <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.pos||'-'}</span><br><span style="font-size:0.6rem;color:var(--muted);">POS</span></div>
                     </div>
                     <button class="btn btn-purple" style="padding:8px;font-size:0.8rem;width:100%;" onclick="event.stopPropagation();showErrorToast('Convite enviado! (em breve)')"><i class="fa-solid fa-paper-plane"></i> Convidar</button>
                 </div>
             `).join('');
+        }
+
+        // ========== MODAL JOGADOR ==========
+        function verJogador(id){
+            const p=window.todosJogadores.find(x=>x.id===id);
+            if(!p)return;
+            const overlay=document.createElement('div');
+            overlay.className='player-modal-overlay';
+            overlay.onclick=(e)=>{if(e.target===overlay)overlay.remove();};
+            overlay.innerHTML=`
+                <div class="player-modal">
+                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="modal-avatar">${p.initials||p.name.substring(0,2).toUpperCase()}</div>
+                    <h2>${p.name}</h2>
+                    <p class="modal-position">${p.position}</p>
+                    <div class="modal-stats">
+                        <div class="modal-stat"><div class="val">${p.overall}</div><div class="lbl">Overall</div></div>
+                        <div class="modal-stat"><div class="val">${p.age}</div><div class="lbl">Idade</div></div>
+                        <div class="modal-stat"><div class="val">${p.height}</div><div class="lbl">Altura</div></div>
+                        <div class="modal-stat"><div class="val">${p.foot}</div><div class="lbl">Pé</div></div>
+                    </div>
+                    <p class="modal-info"><strong>🌍 Nacionalidade:</strong> ${p.nationality}</p>
+                    <p class="modal-info"><strong>🏟️ Último Clube:</strong> ${p.last_club||'N/A'}</p>
+                    <button class="btn btn-purple" style="margin-top:16px;width:100%;" onclick="this.parentElement.parentElement.remove();showSuccessToast('Convite enviado!')"><i class="fa-solid fa-paper-plane"></i> Enviar Convite</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
         }
 
         function logout(){localStorage.removeItem("fa_token");currentToken=null;accountType=null;currentRobloxUser=null;goToStep(1);}
