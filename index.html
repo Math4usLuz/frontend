@@ -1,300 +1,240 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Agents - MPS</title>
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
     
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #1a0a2e 0%, #0a0618 50%, #060213 100%);
-            min-height: 100vh;
+            background: radial-gradient(circle at center, #0a051b 0%, #03010a 100%);
             color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Glow effects */
-        .glow-purple {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
-            top: -10%;
-            left: -10%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .glow-blue {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            bottom: -20%;
-            right: -10%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Container principal */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        /* ==============================================
-               HEADER COM ESCUDOS (da imagem que você enviou)
-               ============================================== */
-        .header-top {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(10px);
-            margin-bottom: 30px;
+            overflow-x: hidden;
         }
 
-        .header-top .logo-text {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #fff 30%, #a855f7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-top .logo-text span {
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            color: #6b7280;
-            -webkit-text-fill-color: #6b7280;
-            margin-left: 8px;
-        }
-
-        .menu-shields {
-            display: flex;
-            gap: 20px;
-        }
-
-        .shield-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 210, 255, 0.15);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: rgba(0, 210, 255, 0.5);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .shield-icon:hover {
-            background: rgba(0, 210, 255, 0.1);
-            border-color: rgba(0, 210, 255, 0.4);
-            color: #00d2ff;
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
-        }
-
-        .shield-icon.active {
-            background: rgba(0, 210, 255, 0.15);
-            border-color: #00d2ff;
-            color: #00d2ff;
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
-        }
-
-        /* Contador online */
+        /* Indicador de Jogadores Online */
         .online-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
 
-        .online-counter .dot {
+        .dot {
             width: 8px;
             height: 8px;
-            background: #00ff66;
+            background-color: #00ff66;
             border-radius: 50%;
-            box-shadow: 0 0 10px #00ff66;
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 8px #00ff66;
+            animation: dotPulse 2s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes dotPulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
 
-        /* ==============================================
-               CONTEÚDO PRINCIPAL (3 colunas - igual ao seu primeiro código)
-               ============================================== */
-        .main-content {
-            flex: 1;
+        /* Container Principal */
+        .main-container {
             display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1fr 1.2fr 1fr;
             align-items: center;
-            padding: 20px 0;
-        }
-
-        /* Grid de escudos laterais (igual ao seu primeiro código) */
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            flex-grow: 1;
+            padding: 40px;
             gap: 20px;
         }
 
-        .team-card {
+        /* Coluna Esquerda: Clubes */
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            opacity: 0.6;
+        }
+
+        .club-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 210, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            height: 100px;
+            padding: 20px;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             font-size: 2rem;
-            color: rgba(0, 210, 255, 0.4);
-            box-shadow: inset 0 0 15px rgba(0, 210, 255, 0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            color: rgba(255, 255, 255, 0.5);
+            transition: 0.3s;
         }
 
-        .team-card:hover {
-            background: rgba(0, 210, 255, 0.05);
-            border-color: rgba(0, 210, 255, 0.4);
-            color: rgba(0, 210, 255, 0.8);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 25px rgba(0, 210, 255, 0.1);
+        .club-card:hover {
+            border-color: #5865F2;
+            color: #ffffff;
+            background: rgba(88, 101, 242, 0.05);
         }
 
-        /* ==============================================
-               CARD DE LOGIN (da imagem que você enviou)
-               ============================================== */
-        .login-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 45px 40px;
+        /* Coluna Central: Painel de Login */
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
-            transition: all 0.3s ease;
         }
 
-        .login-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+        .logo-area {
+            margin-bottom: 30px;
         }
 
-        .login-card .user-icon {
+        .logo-area i {
+            font-size: 3.5rem;
+            color: #5865F2;
+            margin-bottom: 10px;
+            animation: bounce 3s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .logo-area h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        .logo-area span {
+            color: #5865F2;
+            display: block;
+            font-size: 1rem;
+            letter-spacing: 4px;
+        }
+
+        .login-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .avatar-placeholder {
             width: 70px;
             height: 70px;
-            background: rgba(88, 101, 242, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 30px;
-            color: #8b8cf7;
-            border: 2px solid rgba(88, 101, 242, 0.2);
+            align-items: center;
+            margin: 0 auto 20px auto;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .login-card h2 {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 1.6rem;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #fff 60%, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 600;
         }
 
-        .login-card .subtitle {
-            color: #9ca3af;
-            font-size: 14px;
-            margin-bottom: 25px;
-            font-weight: 400;
+        .login-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
         }
 
-        .login-card .divider {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin: 25px 0;
-        }
-
-        /* Botão Discord */
         .btn-discord {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: #5865F2;
-            color: white;
-            text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            border: none;
             width: 100%;
+            background-color: #5865F2;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            position: relative;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+            margin-bottom: 20px;
         }
 
         .btn-discord:hover {
-            background: #4752c4;
+            background-color: #4752C4;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
-        }
-
-        .btn-discord:active {
-            transform: translateY(0);
-        }
-
-        .btn-discord i {
-            font-size: 24px;
         }
 
         .btn-discord:disabled {
             opacity: 0.7;
             cursor: not-allowed;
-            transform: none !important;
+            transform: none;
         }
 
-        .loading-spinner {
-            display: inline-block;
+        .security-info {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        .official-badge {
+            margin-top: 20px;
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8a94f8;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
             width: 20px;
             height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255,255,255,0.3);
             border-top-color: #fff;
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
@@ -304,382 +244,219 @@
             to { transform: rotate(360deg); }
         }
 
-        .safe-text {
-            margin-top: 18px;
-            font-size: 13px;
-            color: #6b7280;
+        /* Coluna Direita: Personagens */
+        .characters-side {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 6px;
-        }
-
-        .safe-text i {
-            color: #34d399;
-        }
-
-        .official-badge {
-            margin-top: 20px;
-            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 18px;
+            height: 100%;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        .promo-art {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: #8b8cf7;
-            border: 1px solid rgba(139, 140, 247, 0.15);
+            padding: 40px 20px;
+            width: 100%;
         }
 
-        .official-badge i {
-            color: #34d399;
-            font-size: 14px;
-        }
-
-        /* ==============================================
-               RODAPÉ COM BENEFÍCIOS (da imagem que você enviou)
-               ============================================== */
-        .footer-benefits {
+        /* Barra de Recursos Inferior (Footer) */
+        .features-footer {
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            padding: 25px 40px;
             gap: 20px;
-            padding: 30px 20px 10px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .benefit-item {
+        .feature-item {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            transition: all 0.3s ease;
+            gap: 15px;
         }
 
-        .benefit-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .benefit-item i {
-            font-size: 22px;
+        .feature-icon {
+            font-size: 1.5rem;
             color: #5865F2;
-            min-width: 30px;
+            background: rgba(88, 101, 242, 0.1);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
         }
 
-        .benefit-item .info h4 {
-            font-size: 12px;
-            font-weight: 700;
+        .feature-text h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #e5e7eb;
         }
 
-        .benefit-item .info p {
-            font-size: 11px;
-            color: #6b7280;
-            margin-top: 2px;
+        .feature-text p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Mensagem de erro */
-        .error-msg {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .error-msg.show {
-            display: block;
-        }
-
-        /* ==============================================
-               RESPONSIVIDADE
-               ============================================== */
+        /* Responsividade */
         @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr 2fr 1fr;
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-top {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-                padding: 15px 20px;
-            }
-
-            .header-top .logo-text {
-                font-size: 22px;
-            }
-
-            .menu-shields {
-                gap: 12px;
-            }
-
-            .shield-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 16px;
-            }
-
-            .online-counter {
-                font-size: 11px;
-                padding: 4px 12px;
-            }
-
-            .main-content {
+            .main-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                padding: 20px;
             }
-
-            .teams-grid {
-                grid-template-columns: repeat(4, 1fr);
+            .clubs-grid, .characters-side {
+                display: none;
             }
-
-            .team-card {
-                height: 70px;
-                font-size: 1.5rem;
-            }
-
-            .login-card {
-                padding: 35px 25px;
-                order: 0;
-            }
-
-            .login-card h2 {
-                font-size: 22px;
-            }
-
-            .footer-benefits {
+            .features-footer {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .benefit-item {
-                padding: 10px 12px;
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
+        @media (max-width: 600px) {
+            .features-footer {
+                grid-template-columns: 1fr;
             }
-
-            .login-card {
-                padding: 25px 18px;
-            }
-
-            .login-card .user-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 24px;
-            }
-
-            .btn-discord {
-                font-size: 14px;
-                padding: 14px 16px;
-            }
-
-            .footer-benefits {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-                padding: 20px 10px 5px;
-            }
-
-            .benefit-item .info h4 {
-                font-size: 10px;
-            }
-
-            .benefit-item .info p {
-                font-size: 9px;
-            }
-
-            .teams-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .team-card {
-                height: 60px;
-                font-size: 1.2rem;
+            .online-counter {
+                top: 10px;
+                right: 10px;
+                font-size: 0.75rem;
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Glows decorativos -->
-    <div class="glow-purple"></div>
-    <div class="glow-blue"></div>
-
-    <div class="container">
-
-        <!-- ==========================================
-        HEADER COM ESCUDOS (da imagem que você enviou)
-        ========================================== -->
-        <header class="header-top">
-            <div class="logo-text">
-                FREE AGENTS
-                <span>M P S</span>
-            </div>
-
-            <div class="menu-shields">
-                <div class="shield-icon active"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            </div>
-
-            <div class="online-counter">
-                <span class="dot"></span> 1.287 Jogadores online
-            </div>
-        </header>
-
-        <!-- ==========================================
-        CONTEÚDO PRINCIPAL (3 colunas - igual ao seu primeiro código)
-        ========================================== -->
-        <div class="main-content">
-
-            <!-- Escudos laterais ESQUERDA -->
-            <div class="teams-grid">
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-            </div>
-
-            <!-- Card de login CENTRAL (da imagem que você enviou) -->
-            <div class="login-card">
-
-                <div class="user-icon">
-                    <i class="fa-regular fa-user"></i>
-                </div>
-
-                <h2>Bem-vindo de volta!</h2>
-                <p class="subtitle">Entre para continuar sua jornada no mundo do futebol.</p>
-
-                <hr class="divider" />
-
-                <!-- Botão Discord -->
-                <button onclick="loginWithDiscord()" id="discord-btn" class="btn-discord">
-                    <i class="fa-brands fa-discord"></i>
-                    <span id="btn-text">Entrar com Discord</span>
-                    <span id="btn-loading" class="loading-spinner" style="display:none;"></span>
-                </button>
-
-                <p id="error-msg" class="error-msg"></p>
-
-                <p class="safe-text">
-                    <i class="fa-solid fa-shield-check"></i> Seguro, rápido e confiável.
-                </p>
-
-                <div class="official-badge">
-                    <i class="fa-solid fa-circle-check"></i> PLATAFORMA OFICIAL MPS
-                </div>
-
-            </div>
-
-            <!-- Escudos laterais DIREITA -->
-            <div class="teams-grid">
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="team-card"><i class="fa-solid fa-shield-halved"></i></div>
-            </div>
-
-        </div>
-
-        <!-- ==========================================
-        RODAPÉ COM BENEFÍCIOS (da imagem que você enviou)
-        ========================================== -->
-        <footer class="footer-benefits">
-            <div class="benefit-item">
-                <i class="fa-solid fa-shield-heart"></i>
-                <div class="info">
-                    <h4>100% SEGURO</h4>
-                    <p>Sua conta protegida sempre</p>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <i class="fa-solid fa-users"></i>
-                <div class="info">
-                    <h4>COMUNIDADE ATIVA</h4>
-                    <p>Junte-se a milhares de jogadores</p>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <i class="fa-solid fa-trophy"></i>
-                <div class="info">
-                    <h4>COMPETIÇÕES</h4>
-                    <p>Participe de ligas e torneios</p>
-                </div>
-            </div>
-            <div class="benefit-item">
-                <i class="fa-solid fa-bolt"></i>
-                <div class="info">
-                    <h4>ATUALIZAÇÕES</h4>
-                    <p>Novidades e melhorias constantes</p>
-                </div>
-            </div>
-        </footer>
-
+    <div class="online-counter">
+        <span class="dot"></span>
+        <span><strong>1287</strong> Jogadores online</span>
     </div>
 
+    <main class="main-container">
+        
+        <div class="clubs-grid">
+            <div class="club-card"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="club-card"><i class="fa-solid fa-trophy"></i></div>
+            <div class="club-card"><i class="fa-solid fa-circle-nodes"></i></div>
+            <div class="club-card"><i class="fa-solid fa-crown"></i></div>
+            <div class="club-card"><i class="fa-solid fa-star"></i></div>
+            <div class="club-card"><i class="fa-solid fa-bolt"></i></div>
+        </div>
+
+        <div class="login-section">
+            <div class="logo-area">
+                <i class="fa-solid fa-futbol"></i>
+                <h1>Free Agents</h1>
+                <span>- M P S -</span>
+            </div>
+
+            <div class="login-card">
+                <div class="avatar-placeholder">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h2>Bem-vindo de volta!</h2>
+                <p>Entre para continuar sua jornada no mundo do futebol.</p>
+
+                <button class="btn-discord" id="discordBtn" onclick="loginWithDiscord()">
+                    <i class="fa-brands fa-discord"></i>
+                    <span id="btnText">Entrar com Discord</span>
+                    <span class="spinner" id="btnSpinner"></span>
+                </button>
+
+                <div class="error-msg" id="errorMsg">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Erro ao conectar. Tente novamente.
+                </div>
+
+                <div class="security-info">
+                    <i class="fa-solid fa-shield-check"></i> Seguro, rápido e confiável.
+                </div>
+            </div>
+
+            <div class="official-badge">
+                <i class="fa-solid fa-circle-check"></i> Plataforma Oficial MPS
+            </div>
+        </div>
+
+        <div class="characters-side">
+            <div class="promo-art">
+                <i class="fa-solid fa-gamepad" style="font-size: 3rem; color: #5865F2; margin-bottom: 15px;"></i>
+                <h3>MPS ROBLOX</h3>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 5px;">Área destinada à arte dos personagens do jogo.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="features-footer">
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-shield-heart"></i></div>
+            <div class="feature-text">
+                <h4>100% Seguro</h4>
+                <p>Sua conta protegida sempre</p>
+            </div>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="feature-text">
+                <h4>Comunidade Ativa</h4>
+                <p>Junte-se a milhares de jogadores</p>
+            </div>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="feature-text">
+                <h4>Competições</h4>
+                <p>Participe de ligas e torneios</p>
+            </div>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <div class="feature-text">
+                <h4>Atualizações</h4>
+                <p>Novidades e melhorias constantes</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // ============================================
-        // CONFIGURAÇÃO - Substitua pela URL do seu backend
-        // ============================================
         const API_URL = "https://free-agents-backend.onrender.com";
 
         async function loginWithDiscord() {
-            const btn = document.getElementById("discord-btn");
-            const btnText = document.getElementById("btn-text");
-            const btnLoading = document.getElementById("btn-loading");
-            const errorMsg = document.getElementById("error-msg");
-
-            // Desabilita o botão e mostra loading
+            const btn = document.getElementById("discordBtn");
+            const btnText = document.getElementById("btnText");
+            const btnSpinner = document.getElementById("btnSpinner");
+            const errorMsg = document.getElementById("errorMsg");
+            
+            // Mostra loading
             btn.disabled = true;
             btnText.textContent = "Redirecionando...";
-            btnLoading.style.display = "inline-block";
+            btnSpinner.style.display = "inline-block";
             errorMsg.classList.remove("show");
-            errorMsg.textContent = "";
-
+            
             try {
-                const response = await fetch(`${API_URL}/auth/discord/login`);
-                
-                if (!response.ok) {
-                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-
-                if (!data.url) {
-                    throw new Error("URL de autenticação não recebida.");
-                }
-
+                const res = await fetch(`${API_URL}/auth/discord/login`);
+                const data = await res.json();
                 window.location.href = data.url;
-
-            } catch (error) {
-                errorMsg.textContent = "Erro ao conectar com o servidor. Tente novamente.";
+            } catch (err) {
+                // Mostra erro
                 errorMsg.classList.add("show");
-
                 btn.disabled = false;
                 btnText.textContent = "Entrar com Discord";
-                btnLoading.style.display = "none";
+                btnSpinner.style.display = "none";
+                
+                // Esconde erro após 4 segundos
+                setTimeout(() => {
+                    errorMsg.classList.remove("show");
+                }, 4000);
             }
         }
-
-        // Efeito nos escudos do menu
-        document.querySelectorAll('.shield-icon').forEach((shield) => {
-            shield.addEventListener('click', function() {
-                document.querySelectorAll('.shield-icon').forEach(s => s.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
     </script>
 
 </body>
