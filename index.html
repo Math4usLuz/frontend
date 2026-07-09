@@ -116,6 +116,8 @@
         .hub-footer { display:flex; justify-content:center; gap:24px; padding:12px 20px; background:rgba(15,15,35,0.6); backdrop-filter:blur(12px); border:1px solid rgba(37,99,235,0.15); border-radius:16px; }
         .hub-footer .footer-item { color:var(--muted); font-size:0.8rem; cursor:pointer; transition:color 0.2s; display:flex; align-items:center; gap:6px; }
         .hub-footer .footer-item:hover { color:#fff; }
+        .search-input-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif;flex:1; }
+        .filter-select-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif; }
 
         @media(max-width:600px) {
             .hub-sidebar { bottom:0; top:auto; left:0; right:0; width:100%!important; height:56px; transform:none; flex-direction:row; justify-content:space-around; border-radius:16px 16px 0 0; padding:0 12px; }
@@ -154,14 +156,14 @@
         <div class="step-panel" id="step6">
             <div class="hub-wrapper">
                 <div class="hub-sidebar">
-                    <div class="sidebar-item active"><i class="fa-solid fa-house"></i><span>Início</span></div>
+                    <div class="sidebar-item active" onclick="loadHub()"><i class="fa-solid fa-house"></i><span>Início</span></div>
                     <div class="sidebar-item"><i class="fa-solid fa-user"></i><span>Perfil</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-futbol"></i><span>Jogadores</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-briefcase"></i><span>Clubes</span></div>
+                    <div class="sidebar-item" onclick="buscarJogadores()"><i class="fa-solid fa-magnifying-glass"></i><span>Buscar</span></div>
+                    <div class="sidebar-item"><i class="fa-solid fa-star"></i><span>Favoritos</span></div>
                     <div class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Convites</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-chart-bar"></i><span>Stats</span></div>
+                    <div class="sidebar-item"><i class="fa-solid fa-gear"></i><span>Config</span></div>
                 </div>
-                <div class="hub-main">
+                <div class="hub-main" id="hubMain">
                     <div class="profile-header">
                         <div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div>
                         <div class="profile-info">
@@ -205,7 +207,7 @@
         function checkAuth(){
             const p=new URLSearchParams(window.location.search);
             const token=p.get("token");
-            const isNew=true; // ⚠️ FORÇA NOVO USUÁRIO PRA TESTAR
+            const isNew=true; // FORÇA NOVO USUÁRIO
             if(token){currentToken=token;localStorage.setItem("fa_token",token);window.history.replaceState({},document.title,"/");
                 if(isNew){goToStep(2);}else{goToStep(5);}}
         }
@@ -214,6 +216,7 @@
 
         function confirmAccountType(){if(!accountType){showErrorToast("Selecione um tipo de conta.");return;}loadHub();goToStep(6);}
 
+        // ========== HUB ==========
         function loadHub(){
             const name=currentRobloxUser||"Jogador MPS";
             document.getElementById("hubName").textContent=name;
@@ -221,6 +224,7 @@
             const tag=document.getElementById("hubTag");
             if(accountType==="jogador"){tag.innerHTML='<i class="fa-solid fa-futbol"></i> Jogador';}
             else{tag.innerHTML='<i class="fa-solid fa-briefcase"></i> Contratante';}
+
             const cards=accountType==="jogador"?[
                 {icon:'fa-solid fa-chart-line',title:'Meus Stats',desc:'Overall, partidas, gols'},
                 {icon:'fa-solid fa-envelope',title:'Convites',desc:'2 novos convites',badge:'2'},
@@ -229,23 +233,85 @@
                 {icon:'fa-solid fa-trophy',title:'Conquistas',desc:'Suas premiações'},
                 {icon:'fa-solid fa-video',title:'Lances',desc:'Seus melhores momentos'},
             ]:[
-                {icon:'fa-solid fa-magnifying-glass',title:'Buscar Jogadores',desc:'Encontre talentos'},
-                {icon:'fa-solid fa-star',title:'Favoritos',desc:'Jogadores salvos'},
-                {icon:'fa-solid fa-envelope',title:'Convites',desc:'Enviar propostas',badge:'3'},
-                {icon:'fa-solid fa-chart-bar',title:'Stats Time',desc:'Desempenho da equipe'},
-                {icon:'fa-solid fa-file-contract',title:'Contratos',desc:'Contratos ativos'},
-                {icon:'fa-solid fa-trophy',title:'Torneios',desc:'Competições'},
+                {icon:'fa-solid fa-magnifying-glass',title:'Buscar Jogadores',desc:'Encontre talentos',action:'buscarJogadores'},
+                {icon:'fa-solid fa-star',title:'Favoritos',desc:'Jogadores salvos',badge:'5'},
+                {icon:'fa-solid fa-envelope',title:'Convites',desc:'Propostas enviadas',badge:'3'},
             ];
+
             document.getElementById("hubCards").innerHTML=cards.map(c=>`
-                <div class="hub-card" onclick="showErrorToast('Em breve!')">
+                <div class="hub-card" onclick="${c.action?`${c.action}()`:`showErrorToast('Em breve!')`}">
                     ${c.badge?`<div class="hub-badge">${c.badge}</div>`:''}
                     <div class="hub-card-icon"><i class="${c.icon}"></i></div>
                     <h4>${c.title}</h4><p>${c.desc}</p>
                 </div>`).join("");
         }
 
+        // ========== BUSCAR JOGADORES ==========
+        function buscarJogadores(){
+            const main=document.getElementById("hubMain");
+            main.innerHTML=`
+                <div class="profile-header">
+                    <div class="profile-avatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div>
+                    <div class="profile-info">
+                        <h3>${currentRobloxUser||'Contratante'}</h3>
+                        <span class="profile-username">@${currentRobloxUser||'username'}</span>
+                        <div class="profile-tag"><i class="fa-solid fa-briefcase"></i> Contratante</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;margin-bottom:16px;">
+                    <input type="text" id="searchPlayer" placeholder="Buscar por nome, posição ou nacionalidade..." class="search-input-hub" oninput="filtrarJogadores()">
+                    <select id="filterPosition" onchange="filtrarJogadores()" class="filter-select-hub">
+                        <option value="">Todas Posições</option>
+                        <option>Goleiro</option><option>Zagueiro</option><option>Lateral</option>
+                        <option>Meio-campo</option><option>Atacante</option>
+                    </select>
+                </div>
+                <div id="playersResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+                <div class="hub-footer">
+                    <div class="footer-item" onclick="loadHub();document.getElementById('hubMain').innerHTML=document.getElementById('hubMain').innerHTML;window.location.reload();"><i class="fa-solid fa-arrow-left"></i> Voltar</div>
+                </div>
+            `;
+            carregarJogadores();
+        }
+
+        async function carregarJogadores(){
+            const c=document.getElementById('playersResults');
+            c.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Carregando...</p>';
+            try{
+                const r=await fetch(`${API_URL}/players`);
+                const d=await r.json();
+                window.todosJogadores=d.players||d;
+                filtrarJogadores();
+            }catch(e){c.innerHTML='<p style="color:var(--error);text-align:center;padding:40px;grid-column:1/-1;">Erro ao carregar.</p>';}
+        }
+
+        function filtrarJogadores(){
+            const s=(document.getElementById('searchPlayer')?.value||'').toLowerCase();
+            const f=document.getElementById('filterPosition')?.value||'';
+            const j=window.todosJogadores||[];
+            const filt=j.filter(p=>(!s||p.name.toLowerCase().includes(s)||p.nationality.toLowerCase().includes(s))&&(!f||p.position===f));
+            const c=document.getElementById('playersResults');
+            if(!c)return;
+            if(filt.length===0){c.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Nenhum jogador encontrado.</p>';return;}
+            c.innerHTML=filt.map(p=>`
+                <div class="hub-card" style="text-align:left;padding:16px;">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                        <div class="avatar-preview" style="width:40px;height:40px;font-size:16px;">${p.initials||p.name.substring(0,2).toUpperCase()}</div>
+                        <div><h4 style="margin:0;">${p.name}</h4><p style="margin:0;font-size:0.7rem;color:var(--muted);">${p.position} • ${p.nationality}</p></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid rgba(255,255,255,0.05);margin-bottom:8px;">
+                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.overall}</span><br><span style="font-size:0.6rem;color:var(--muted);">OVR</span></div>
+                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.age}</span><br><span style="font-size:0.6rem;color:var(--muted);">IDADE</span></div>
+                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.pos||'-'}</span><br><span style="font-size:0.6rem;color:var(--muted);">POS</span></div>
+                    </div>
+                    <button class="btn btn-purple" style="padding:8px;font-size:0.8rem;width:100%;" onclick="event.stopPropagation();showErrorToast('Convite enviado! (em breve)')"><i class="fa-solid fa-paper-plane"></i> Convidar</button>
+                </div>
+            `).join('');
+        }
+
         function logout(){localStorage.removeItem("fa_token");currentToken=null;accountType=null;currentRobloxUser=null;goToStep(1);}
 
+        // ========== AVATAR ==========
         let ad=null,ar=0;
         function onUsernameInput(){const u=document.getElementById("robloxUsername").value.trim();clearTimeout(ad);if(!u){resetAvatarPreview();return;}ad=setTimeout(()=>fetchRobloxAvatar(u),500);}
         function resetAvatarPreview(){document.getElementById("avatarPreview").innerHTML='<i class="fas fa-face-smile"></i>';}
@@ -261,6 +327,7 @@
             }catch(e){if(r===ar)resetAvatarPreview();}
         }
 
+        // ========== ETAPA 2-3 ==========
         function connectRoblox(){
             const u=document.getElementById("robloxUsername").value.trim();
             if(!u){showErrorToast("Digite um nome de usuário válido.");return;}
