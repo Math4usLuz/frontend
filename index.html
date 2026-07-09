@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Free Agents - Autenticação</title>
+    
+    <!-- Tailwind + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,800&display=swap" rel="stylesheet" />
     
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Montserrat', sans-serif;
             background: radial-gradient(circle at 20% 30%, #301934 0%, #0d0d1e 50%, #0b112c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: white;
             overflow-x: hidden;
         }
         .purple-glow {
             position: absolute;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(124,58,237,0.30) 0%, rgba(0,0,0,0) 70%);
             top: -10%;
             left: -10%;
             z-index: 1;
+            pointer-events: none;
         }
         .blue-glow {
             position: absolute;
@@ -31,6 +41,7 @@
             bottom: -20%;
             right: -10%;
             z-index: 1;
+            pointer-events: none;
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.04);
@@ -38,6 +49,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: border 0.25s, background 0.25s;
         }
         .glass-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
@@ -55,17 +67,23 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        /* Ajuste para telas pequenas */
+        @media (max-width: 1024px) {
+            .purple-glow, .blue-glow { display: none; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 relative text-white">
+<body>
 
+    <!-- Glows decorativos -->
     <div class="purple-glow"></div>
     <div class="blue-glow"></div>
 
-    <div class="w-full max-w-6xl flex flex-col items-center justify-center z-10">
-        
+    <!-- Container principal -->
+    <div class="relative z-10 w-full max-w-6xl flex flex-col items-center justify-center">
+
         <!-- Header -->
-        <header class="text-center mb-10">
+        <header class="text-center mb-8 md:mb-10">
             <h1 class="text-5xl md:text-6xl font-black italic tracking-wider uppercase text-white drop-shadow-[0_4px_12px_rgba(255,255,255,0.1)]">
                 FREE AGENTS
             </h1>
@@ -74,8 +92,9 @@
             </p>
         </header>
 
-        <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-6 px-4">
-            
+        <!-- Cards: Jogadores | Login | Clubes -->
+        <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4 px-0 sm:px-4">
+
             <!-- Card Esquerda - Jogadores -->
             <div class="glass-card w-full max-w-xs rounded-2xl p-6 text-center order-2 lg:order-1 transition-all duration-300">
                 <div class="text-purple-400 text-5xl mb-4">
@@ -87,9 +106,10 @@
                 <p class="text-gray-500 text-xs">Cadastre-se gratuitamente e seja encontrado por clubes do mundo todo.</p>
             </div>
 
-            <!-- Card Central - Login -->
+            <!-- Card Central - Login (DESTAQUE) -->
             <div class="glass-card w-full max-w-md rounded-2xl p-8 md:p-10 text-center flex flex-col items-center justify-center order-1 lg:order-2 mx-auto relative overflow-hidden">
-                
+
+                <!-- Ícone Discord grande -->
                 <div class="text-[#5865F2] text-7xl mb-6 filter drop-shadow-[0_4px_10px_rgba(88,101,242,0.3)]">
                     <i class="fa-brands fa-discord"></i>
                 </div>
@@ -98,12 +118,14 @@
                     Entre com sua conta Discord para começar
                 </h2>
 
+                <!-- Botão login -->
                 <button onclick="loginWithDiscord()" id="discord-btn" class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg shadow-[#5865F2]/20 transform hover:-translate-y-0.5 text-base">
                     <i class="fa-brands fa-discord text-2xl"></i>
                     <span id="btn-text">Entrar com Discord</span>
                     <span id="btn-loading" class="loading-spinner" style="display:none;"></span>
                 </button>
 
+                <!-- Mensagem de erro -->
                 <p id="error-msg" class="text-red-400 text-xs mt-4 hidden"></p>
 
                 <p class="text-xs text-gray-500 mt-6 tracking-wide font-medium">
@@ -126,6 +148,7 @@
     </div>
 
     <script>
+        // Substitua pela URL REAL do seu backend (Render, Heroku, Vercel, etc.)
         const API_URL = "https://free-agents-backend.onrender.com";
 
         async function loginWithDiscord() {
@@ -133,17 +156,22 @@
             const btnText = document.getElementById("btn-text");
             const btnLoading = document.getElementById("btn-loading");
             const errorMsg = document.getElementById("error-msg");
-            
+
+            // Desabilita o botão e mostra loading
             btn.disabled = true;
             btnText.textContent = "Redirecionando...";
             btnLoading.style.display = "inline-block";
             errorMsg.classList.add("hidden");
-            
+
             try {
-                const res = await fetch(`${API_URL}/auth/discord/login`);
-                const data = await res.json();
+                // Chama o endpoint que gera a URL de autenticação do Discord
+                const response = await fetch(`${API_URL}/auth/discord/login`);
+                const data = await response.json();
+
+                // Redireciona o usuário para o Discord
                 window.location.href = data.url;
-            } catch (err) {
+            } catch (error) {
+                // Em caso de erro, exibe mensagem e reativa o botão
                 errorMsg.textContent = "Erro ao conectar com o servidor. Tente novamente.";
                 errorMsg.classList.remove("hidden");
                 btn.disabled = false;
