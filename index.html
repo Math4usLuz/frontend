@@ -16,21 +16,48 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #0a051b 0%, #03010a 100%);
+            background-image: url('https://media.discordapp.net/attachments/1197353564171939982/1524591451319697469/novo.png?ex=6a504def&is=6a4efc6f&hm=1a49e3ac0672bc6830678f97a371cda25e49cc7d03f23c77f962d75ee372b4e7&=&format=webp&quality=lossless&width=1398&height=787');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            overflow-x: hidden;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
-        /* Indicador de Jogadores Online */
-        .online-counter {
+        /* Camada escura sobre a imagem */
+        body::before {
+            content: '';
             position: absolute;
+            inset: 0;
+            background: rgba(5, 5, 20, 0.25);
+            z-index: 0;
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Indicador online */
+        .online-counter {
+            position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -55,59 +82,16 @@
             50% { opacity: 0.4; }
         }
 
-        /* Container Principal */
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
-            align-items: center;
-            flex-grow: 1;
-            padding: 40px;
-            gap: 20px;
-        }
-
-        /* Coluna Esquerda: Clubes */
-        .clubs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            opacity: 0.6;
-        }
-
-        .club-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.5);
-            transition: 0.3s;
-        }
-
-        .club-card:hover {
-            border-color: #5865F2;
-            color: #ffffff;
-            background: rgba(88, 101, 242, 0.05);
-        }
-
-        /* Coluna Central: Painel de Login */
-        .login-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
+        /* Logo */
         .logo-area {
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 24px;
         }
 
         .logo-area i {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #5865F2;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             animation: bounce 3s infinite;
         }
 
@@ -117,61 +101,67 @@
         }
 
         .logo-area h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .logo-area span {
             color: #5865F2;
             display: block;
-            font-size: 1rem;
+            font-size: 0.9rem;
             letter-spacing: 4px;
+            font-weight: 600;
         }
 
+        /* Card de login */
         .login-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 40px;
+            padding: 36px 30px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
         .avatar-placeholder {
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: 0 auto 20px auto;
-            font-size: 2rem;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .login-card h2 {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 6px;
             font-weight: 600;
         }
 
         .login-card p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 30px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 24px;
         }
 
         .btn-discord {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
             background-color: #5865F2;
             color: #ffffff;
@@ -181,14 +171,14 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            text-decoration: none;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
         }
 
         .btn-discord:hover {
             background-color: #4752C4;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
         }
 
         .btn-discord:disabled {
@@ -197,43 +187,10 @@
             transform: none;
         }
 
-        .security-info {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .error-msg {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .error-msg.show {
-            display: block;
-        }
-
-        .official-badge {
-            margin-top: 20px;
-            background: rgba(88, 101, 242, 0.1);
-            border: 1px solid rgba(88, 101, 242, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #8a94f8;
-        }
-
-        /* Loading spinner */
         .spinner {
             display: none;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 2px solid rgba(255,255,255,0.3);
             border-top-color: #fff;
             border-radius: 50%;
@@ -244,186 +201,155 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Coluna Direita: Personagens */
-        .characters-side {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            position: relative;
-            opacity: 0.8;
-        }
-
-        .promo-art {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            border: 2px dashed rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px 20px;
-            width: 100%;
-        }
-
-        /* Barra de Recursos Inferior (Footer) */
-        .features-footer {
-            background: rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            padding: 25px 40px;
-            gap: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            color: #5865F2;
-            background: rgba(88, 101, 242, 0.1);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-        }
-
-        .feature-text h4 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .feature-text p {
+        .error-msg {
+            color: #ff6b6b;
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
+            margin-top: 10px;
+            display: none;
         }
 
-        /* Responsividade */
-        @media (max-width: 1024px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-            .clubs-grid, .characters-side {
-                display: none;
-            }
-            .features-footer {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .error-msg.show {
+            display: block;
+        }
+
+        .security-info {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .official-badge {
+            margin-top: 18px;
+            background: rgba(88, 101, 242, 0.12);
+            border: 1px solid rgba(88, 101, 242, 0.25);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8a94f8;
+            display: inline-block;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 16px 20px;
+            z-index: 10;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+        }
+
+        .footer-item i {
+            color: #5865F2;
+            font-size: 1rem;
+        }
+
+        .footer-item span {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         @media (max-width: 600px) {
-            .features-footer {
-                grid-template-columns: 1fr;
+            .login-card {
+                padding: 24px 18px;
             }
-            .online-counter {
-                top: 10px;
-                right: 10px;
-                font-size: 0.75rem;
-                padding: 6px 12px;
+            .logo-area h1 {
+                font-size: 1.5rem;
+            }
+            .footer {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Indicador Online -->
     <div class="online-counter">
         <span class="dot"></span>
         <span><strong>1287</strong> Jogadores online</span>
     </div>
 
-    <main class="main-container">
+    <!-- Container Principal -->
+    <div class="container">
         
-        <div class="clubs-grid">
-            <div class="club-card"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="club-card"><i class="fa-solid fa-trophy"></i></div>
-            <div class="club-card"><i class="fa-solid fa-circle-nodes"></i></div>
-            <div class="club-card"><i class="fa-solid fa-crown"></i></div>
-            <div class="club-card"><i class="fa-solid fa-star"></i></div>
-            <div class="club-card"><i class="fa-solid fa-bolt"></i></div>
+        <!-- Logo -->
+        <div class="logo-area">
+            <i class="fa-solid fa-futbol"></i>
+            <h1>Free Agents</h1>
+            <span>- M P S -</span>
         </div>
 
-        <div class="login-section">
-            <div class="logo-area">
-                <i class="fa-solid fa-futbol"></i>
-                <h1>Free Agents</h1>
-                <span>- M P S -</span>
+        <!-- Card Login -->
+        <div class="login-card">
+            <div class="avatar-placeholder">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <h2>Bem-vindo de volta!</h2>
+            <p>Entre para continuar sua jornada no mundo do futebol.</p>
+
+            <button class="btn-discord" id="discordBtn" onclick="loginWithDiscord()">
+                <i class="fa-brands fa-discord"></i>
+                <span id="btnText">Entrar com Discord</span>
+                <span class="spinner" id="btnSpinner"></span>
+            </button>
+
+            <div class="error-msg" id="errorMsg">
+                <i class="fa-solid fa-triangle-exclamation"></i> Erro ao conectar. Tente novamente.
             </div>
 
-            <div class="login-card">
-                <div class="avatar-placeholder">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <h2>Bem-vindo de volta!</h2>
-                <p>Entre para continuar sua jornada no mundo do futebol.</p>
-
-                <button class="btn-discord" id="discordBtn" onclick="loginWithDiscord()">
-                    <i class="fa-brands fa-discord"></i>
-                    <span id="btnText">Entrar com Discord</span>
-                    <span class="spinner" id="btnSpinner"></span>
-                </button>
-
-                <div class="error-msg" id="errorMsg">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Erro ao conectar. Tente novamente.
-                </div>
-
-                <div class="security-info">
-                    <i class="fa-solid fa-shield-check"></i> Seguro, rápido e confiável.
-                </div>
-            </div>
-
-            <div class="official-badge">
-                <i class="fa-solid fa-circle-check"></i> Plataforma Oficial MPS
+            <div class="security-info">
+                <i class="fa-solid fa-shield-check"></i> Seguro, rápido e confiável.
             </div>
         </div>
 
-        <div class="characters-side">
-            <div class="promo-art">
-                <i class="fa-solid fa-gamepad" style="font-size: 3rem; color: #5865F2; margin-bottom: 15px;"></i>
-                <h3>MPS ROBLOX</h3>
-                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 5px;">Área destinada à arte dos personagens do jogo.</p>
-            </div>
+        <div class="official-badge">
+            <i class="fa-solid fa-circle-check"></i> Plataforma Oficial MPS
         </div>
 
-    </main>
+    </div>
 
-    <footer class="features-footer">
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="feature-text">
-                <h4>100% Seguro</h4>
-                <p>Sua conta protegida sempre</p>
-            </div>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-item">
+            <i class="fa-solid fa-shield-heart"></i>
+            <span>100% Seguro</span>
         </div>
-
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
-            <div class="feature-text">
-                <h4>Comunidade Ativa</h4>
-                <p>Junte-se a milhares de jogadores</p>
-            </div>
+        <div class="footer-item">
+            <i class="fa-solid fa-users"></i>
+            <span>Comunidade Ativa</span>
         </div>
-
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fa-solid fa-award"></i></div>
-            <div class="feature-text">
-                <h4>Competições</h4>
-                <p>Participe de ligas e torneios</p>
-            </div>
+        <div class="footer-item">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Competições</span>
         </div>
-
-        <div class="feature-item">
-            <div class="feature-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-            <div class="feature-text">
-                <h4>Atualizações</h4>
-                <p>Novidades e melhorias constantes</p>
-            </div>
+        <div class="footer-item">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Atualizações</span>
         </div>
-    </footer>
+    </div>
 
     <script>
         const API_URL = "https://free-agents-backend.onrender.com";
@@ -434,7 +360,6 @@
             const btnSpinner = document.getElementById("btnSpinner");
             const errorMsg = document.getElementById("errorMsg");
             
-            // Mostra loading
             btn.disabled = true;
             btnText.textContent = "Redirecionando...";
             btnSpinner.style.display = "inline-block";
@@ -445,16 +370,11 @@
                 const data = await res.json();
                 window.location.href = data.url;
             } catch (err) {
-                // Mostra erro
                 errorMsg.classList.add("show");
                 btn.disabled = false;
                 btnText.textContent = "Entrar com Discord";
                 btnSpinner.style.display = "none";
-                
-                // Esconde erro após 4 segundos
-                setTimeout(() => {
-                    errorMsg.classList.remove("show");
-                }, 4000);
+                setTimeout(() => errorMsg.classList.remove("show"), 4000);
             }
         }
     </script>
