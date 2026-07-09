@@ -116,10 +116,13 @@
         .hub-footer { display:flex; justify-content:center; gap:24px; padding:12px 20px; background:rgba(15,15,35,0.6); backdrop-filter:blur(12px); border:1px solid rgba(37,99,235,0.15); border-radius:16px; }
         .hub-footer .footer-item { color:var(--muted); font-size:0.8rem; cursor:pointer; transition:color 0.2s; display:flex; align-items:center; gap:6px; }
         .hub-footer .footer-item:hover { color:#fff; }
-        .search-input-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif;flex:1; }
-        .filter-select-hub { padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif; }
+        .stats-list { display:flex;flex-direction:column;gap:8px;text-align:left; }
+        .stats-list .stat-row { display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px; }
+        .stats-list .stat-row .stat-name { font-size:0.85rem;font-weight:500; }
+        .stats-list .stat-row .stat-value { font-weight:700;color:#3b82f6; }
+        .invite-card { display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px; }
+        .invite-card .invite-avatar { width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0; }
 
-        /* ========== MODAL JOGADOR ========== */
         .player-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease; }
         .player-modal { background:rgba(15,15,35,0.95);backdrop-filter:blur(20px);border:2px solid rgba(37,99,235,0.3);border-radius:20px;padding:30px;max-width:480px;width:90%;text-align:center;position:relative;animation:slideUp 0.3s ease;max-height:90vh;overflow-y:auto; }
         .player-modal .modal-close { position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:color 0.2s; }
@@ -127,10 +130,10 @@
         .player-modal .modal-avatar { width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 14px; }
         .player-modal h2 { font-family:'Oswald',sans-serif;font-size:1.4rem;margin-bottom:4px; }
         .player-modal .modal-position { color:#3b82f6;font-weight:600;font-size:0.85rem;margin-bottom:14px; }
-        .player-modal .modal-stats { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:14px; }
-        .player-modal .modal-stat { text-align:center; }
-        .player-modal .modal-stat .val { font-weight:700;font-size:1rem; }
-        .player-modal .modal-stat .lbl { font-size:0.6rem;color:var(--muted);text-transform:uppercase; }
+        .player-modal .modal-stats { display:flex;flex-direction:column;gap:8px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:14px; }
+        .player-modal .modal-stat-row { display:flex;justify-content:space-between;align-items:center; }
+        .player-modal .modal-stat-row .lbl { font-size:0.8rem;color:var(--muted); }
+        .player-modal .modal-stat-row .val { font-weight:700;font-size:0.95rem; }
         .player-modal .modal-info { color:var(--muted);font-size:0.82rem;margin-bottom:5px; }
         .player-modal .modal-actions { display:flex;gap:10px;margin-top:16px; }
         .star-rating { display:flex;justify-content:center;gap:4px;margin:8px 0; }
@@ -141,11 +144,130 @@
         @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
 
-        /* ========== CONFIG ========== */
         .config-section { display:flex;flex-direction:column;gap:12px;text-align:left; }
         .config-section label { font-size:0.85rem;font-weight:600;color:var(--card-gold-text); }
         .config-section input,.config-section select { padding:10px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(37,99,235,0.2);color:#fff;font-family:'Inter',sans-serif; }
         .config-section .btn { margin-top:8px; }
+
+        /* ========== FRUTIGER AERO - BUSCA ========== */
+        .search-section-container {
+            background: linear-gradient(135deg, #7ec8e3 0%, #a0e7e5 50%, #ffffff 100%);
+            border-radius: 24px;
+            padding: 20px;
+            margin: -10px;
+        }
+        .search-section-container .profile-header {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(12px) !important;
+            border: 2px solid rgba(255, 255, 255, 0.7) !important;
+            color: #1a3a4b !important;
+        }
+        .search-section-container .profile-info h3,
+        .search-section-container .profile-username { color: #1a3a4b !important; }
+        .search-section-container .profile-tag {
+            background: linear-gradient(135deg, #f9f3b0, #f7b84b) !important;
+            color: #1a3a4b !important;
+        }
+        .search-section-container .search-input-hub {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            color: #1a3a4b;
+            box-shadow: 0 4px 15px rgba(126, 200, 227, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .search-section-container .search-input-hub:focus {
+            border-color: #7ec8e3;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 15px rgba(160, 231, 229, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+        .search-section-container .filter-select-hub {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(220, 245, 245, 0.8) 100%);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            color: #1a3a4b;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 -2px 5px rgba(126, 200, 227, 0.2);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .search-section-container .filter-select-hub:focus {
+            border-color: #a0e7e5;
+            box-shadow: 0 0 12px rgba(126, 200, 227, 0.6);
+        }
+        .search-section-container .hub-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(126, 200, 227, 0.3), inset 0 4px 4px rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .search-section-container .hub-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 22px 22px 0 0;
+            pointer-events: none;
+        }
+        .search-section-container .hub-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 15px 35px rgba(126, 200, 227, 0.6), 0 0 25px rgba(249, 243, 176, 0.4), inset 0 4px 8px rgba(255, 255, 255, 0.8);
+        }
+        .search-section-container .avatar-preview {
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #7ec8e3 60%, #4ca7cc 100%);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 15px rgba(76, 167, 204, 0.4), inset -3px -3px 8px rgba(0, 0, 0, 0.15), inset 3px 3px 8px rgba(255, 255, 255, 0.8);
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        .search-section-container .stats-list .stat-row {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 6px 12px;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .search-section-container .btn-purple {
+            background: linear-gradient(to bottom, #f9f3b0 0%, #f7b84b 50%, #e28714 100%);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(226, 135, 20, 0.4), inset 0 4px 4px rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .search-section-container .btn-purple:hover {
+            background: linear-gradient(to bottom, #fffbc7 0%, #f9c464 50%, #f29624 100%);
+            box-shadow: 0 6px 18px rgba(226, 135, 20, 0.6), inset 0 4px 4px rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+        }
+        .search-section-container .hub-footer {
+            background: rgba(255, 255, 255, 0.4) !important;
+            backdrop-filter: blur(12px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+        }
+        .search-section-container .hub-footer .footer-item { color: #1a3a4b !important; }
+        .search-section-container .hub-footer .footer-item:hover { color: #000 !important; }
 
         @media(max-width:600px) {
             .hub-sidebar { bottom:0; top:auto; left:0; right:0; width:100%!important; height:56px; transform:none; flex-direction:row; justify-content:space-around; border-radius:16px 16px 0 0; padding:0 12px; }
@@ -153,7 +275,6 @@
             .hub-sidebar .sidebar-item span { display:none!important; }
             .hub-cards { grid-template-columns:repeat(2,1fr); }
             .hub-main { margin-left:0; }
-            .player-modal .modal-stats { grid-template-columns:repeat(2,1fr); }
         }
     </style>
 </head>
@@ -166,7 +287,6 @@
     <div class="container">
         <div class="logo-area"><div class="badge-ring"><i class="fa-solid fa-futbol"></i></div><h1>Free Agents</h1><span>— M P S —</span></div>
 
-        <!-- ETAPAS 1-5 (mantidas) -->
         <div class="step-panel active" id="step1"><div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-discord"><i class="fa-brands fa-discord"></i></div><h2><i class="fa-brands fa-discord" style="color:#5865F2;margin-right:8px;"></i>Bem-vindo de volta!</h2><p class="subtitle">Entre com Discord para começar sua jornada.</p><button class="btn btn-discord" id="btnDiscord" onclick="loginDiscord()"><i class="fa-brands fa-discord"></i><span id="btnDiscordText">Entrar com Discord</span><span class="spinner" id="spinnerDiscord"></span></button></div><div class="official-badge"><i class="fa-solid fa-circle-check"></i> Plataforma Oficial Free Agents - MPS</div></div>
         <div class="step-panel" id="step2"><div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-roblox"><i class="fa-solid fa-gamepad"></i></div><h2>Conecte sua conta Roblox</h2><p class="subtitle">Digite seu nome de usuário para verificar.</p><div class="input-wrapper"><div class="avatar-preview" id="avatarPreview"><i class="fas fa-face-smile"></i></div><input type="text" id="robloxUsername" placeholder="@username" oninput="onUsernameInput()" onkeydown="if(event.key==='Enter')connectRoblox()"></div><button class="btn btn-purple" id="btnRoblox" onclick="connectRoblox()"><i class="fa-solid fa-link"></i><span id="btnRobloxText">CONTINUAR</span><span class="spinner" id="spinnerRoblox"></span></button><span class="back-link" onclick="goToStep(1)">← Voltar</span></div><div class="step-indicator">Etapa 2 de 4</div></div>
         <div class="step-panel" id="step3"><div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-roblox"><i class="fa-solid fa-shield-halved"></i></div><h2>Verifique sua conta Roblox</h2><p class="subtitle">Cole este código na sua Bio do Roblox</p><div class="username-display"><i class="fa-solid fa-gamepad"></i> @<span id="displayUsername"></span></div><div class="code-box" id="codeBox" onclick="copyCode()"><h3 id="verifyCode">FA-MPS-XXXX</h3></div><button class="btn btn-purple" id="btnCopy" onclick="copyCode()"><i class="far fa-copy"></i> Copiar código</button><button class="btn btn-blue" id="btnVerify" onclick="verifyBio()"><i class="fas fa-check-circle"></i><span id="btnVerifyText">Já colei, verificar agora</span><span class="spinner" id="spinnerVerify"></span></button><span class="back-link" onclick="goToStep(2)">← Voltar</span><div class="msg msg-success" id="successVerify"></div><div class="msg msg-error" id="errorVerify"></div><div class="steps-row"><div class="step-item"><div class="step-circle">1</div><div class="step-text">Copie</div></div><div class="step-arrow"><i class="fas fa-chevron-right"></i></div><div class="step-item"><div class="step-circle">2</div><div class="step-text">Bio Roblox</div></div><div class="step-arrow"><i class="fas fa-chevron-right"></i></div><div class="step-item"><div class="step-circle">3</div><div class="step-text">Verificar</div></div></div></div></div>
@@ -178,20 +298,16 @@
             <div class="hub-wrapper">
                 <div class="hub-sidebar">
                     <div class="sidebar-item active" onclick="loadHub()"><i class="fa-solid fa-house"></i><span>Início</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-user"></i><span>Perfil</span></div>
+                    <div class="sidebar-item" onclick="abrirPerfil()"><i class="fa-solid fa-user"></i><span>Perfil</span></div>
                     <div class="sidebar-item" onclick="buscarJogadores()"><i class="fa-solid fa-magnifying-glass"></i><span>Buscar</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-star"></i><span>Favoritos</span></div>
-                    <div class="sidebar-item"><i class="fa-solid fa-envelope"></i><span>Convites</span></div>
+                    <div class="sidebar-item" onclick="abrirFavoritos()"><i class="fa-solid fa-star"></i><span>Favoritos</span></div>
+                    <div class="sidebar-item" onclick="abrirConvites()"><i class="fa-solid fa-envelope"></i><span>Convites</span></div>
                     <div class="sidebar-item" onclick="abrirConfig()"><i class="fa-solid fa-gear"></i><span>Config</span></div>
                 </div>
                 <div class="hub-main" id="hubMain">
                     <div class="profile-header">
                         <div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div>
-                        <div class="profile-info">
-                            <h3 id="hubName">Carregando...</h3>
-                            <span class="profile-username" id="hubUsername">@username</span>
-                            <div class="profile-tag" id="hubTag"><i class="fa-solid fa-futbol"></i> Jogador</div>
-                        </div>
+                        <div class="profile-info"><h3 id="hubName">Carregando...</h3><span class="profile-username" id="hubUsername">@username</span><div class="profile-tag" id="hubTag"><i class="fa-solid fa-futbol"></i> Jogador</div></div>
                     </div>
                     <div class="hub-cards" id="hubCards"></div>
                     <div class="hub-footer">
@@ -214,21 +330,15 @@
         function hideSuccessToast(){document.getElementById("successToast").classList.remove("show");clearTimeout(stt);}
 
         let currentToken=null,currentRobloxUser=null,generatedCode=null,accountType=null;
-        let favoritos = JSON.parse(localStorage.getItem('fa_favoritos')||'[]');
-        let avaliacoes = JSON.parse(localStorage.getItem('fa_avaliacoes')||'{}');
+        let favoritos=JSON.parse(localStorage.getItem('fa_favoritos')||'[]');
+        let avaliacoes=JSON.parse(localStorage.getItem('fa_avaliacoes')||'{}');
 
         function goToStep(s){document.querySelectorAll(".step-panel").forEach(p=>p.classList.remove("active"));document.getElementById("step"+s).classList.add("active");setBackground(s);}
-        async function loginDiscord(){
-            const b=document.getElementById("btnDiscord"),bt=document.getElementById("btnDiscordText"),sp=document.getElementById("spinnerDiscord");
-            b.disabled=true;bt.textContent="Redirecionando...";sp.style.display="inline-block";hideErrorToast();
-            try{const r=await fetch(`${API_URL}/auth/discord/login`);const d=await r.json();window.location.href=d.url;}
-            catch(e){showErrorToast("Erro ao conectar.");b.disabled=false;bt.textContent="Entrar com Discord";sp.style.display="none";}
-        }
+        async function loginDiscord(){const b=document.getElementById("btnDiscord"),bt=document.getElementById("btnDiscordText"),sp=document.getElementById("spinnerDiscord");b.disabled=true;bt.textContent="Redirecionando...";sp.style.display="inline-block";hideErrorToast();try{const r=await fetch(`${API_URL}/auth/discord/login`);const d=await r.json();window.location.href=d.url;}catch(e){showErrorToast("Erro ao conectar.");b.disabled=false;bt.textContent="Entrar com Discord";sp.style.display="none";}}
         function checkAuth(){const p=new URLSearchParams(window.location.search);const token=p.get("token");const isNew=true;if(token){currentToken=token;localStorage.setItem("fa_token",token);window.history.replaceState({},document.title,"/");if(isNew){goToStep(2);}else{goToStep(5);}}}
         function selectAccountType(t){accountType=t;document.getElementById("cardJogador").classList.remove("selected");document.getElementById("cardContratante").classList.remove("selected");document.getElementById("card"+t.charAt(0).toUpperCase()+t.slice(1)).classList.add("selected");document.getElementById("btnAccountType").disabled=false;}
         function confirmAccountType(){if(!accountType){showErrorToast("Selecione um tipo de conta.");return;}loadHub();goToStep(6);}
 
-        // ========== HUB ==========
         function loadHub(){
             document.getElementById("hubName").textContent=currentRobloxUser||"Jogador MPS";
             document.getElementById("hubUsername").textContent="@"+(currentRobloxUser||"username");
@@ -237,148 +347,69 @@
             else{tag.innerHTML='<i class="fa-solid fa-briefcase"></i> Contratante';}
             if(currentRobloxUser){fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`).then(r=>r.json()).then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}}).catch(()=>{});}
             const cards=accountType==="jogador"?[
-                {icon:'fa-solid fa-chart-line',title:'Meus Stats',desc:'Overall, partidas, gols'},
-                {icon:'fa-solid fa-envelope',title:'Convites',desc:'2 novos convites',badge:'2'},
+                {icon:'fa-solid fa-chart-line',title:'Meus Stats',desc:'Overall, partidas, gols',action:'abrirPerfil'},
+                {icon:'fa-solid fa-envelope',title:'Convites',desc:'2 novos convites',badge:'2',action:'abrirConvites'},
                 {icon:'fa-solid fa-magnifying-glass',title:'Buscar Clubes',desc:'Encontre seu time'},
                 {icon:'fa-solid fa-user-pen',title:'Editar Perfil',desc:'Atualize suas informações'},
-                {icon:'fa-solid fa-trophy',title:'Conquistas',desc:'Suas premiações'},
-                {icon:'fa-solid fa-video',title:'Lances',desc:'Seus melhores momentos'},
             ]:[
                 {icon:'fa-solid fa-magnifying-glass',title:'Buscar Jogadores',desc:'Encontre talentos',action:'buscarJogadores'},
-                {icon:'fa-solid fa-star',title:'Favoritos',desc:favoritos.length+' jogadores salvos',badge:favoritos.length||null},
-                {icon:'fa-solid fa-envelope',title:'Convites',desc:'Propostas enviadas',badge:'3'},
+                {icon:'fa-solid fa-star',title:'Favoritos',desc:favoritos.length+' jogadores salvos',badge:favoritos.length||null,action:'abrirFavoritos'},
+                {icon:'fa-solid fa-envelope',title:'Convites',desc:'Propostas enviadas',badge:'3',action:'abrirConvites'},
             ];
             document.getElementById("hubCards").innerHTML=cards.map(c=>`<div class="hub-card" onclick="${c.action?`${c.action}()`:`showErrorToast('Em breve!')`}">${c.badge?`<div class="hub-badge">${c.badge}</div>`:''}<div class="hub-card-icon"><i class="${c.icon}"></i></div><h4>${c.title}</h4><p>${c.desc}</p></div>`).join("");
         }
 
-        // ========== BUSCAR JOGADORES ==========
+        function abrirPerfil(){
+            const main=document.getElementById("hubMain");
+            const avatarUrl=document.getElementById("hubAvatar")?.querySelector('img')?.src||'';
+            main.innerHTML=`<div class="profile-header"><div class="profile-avatar" id="hubAvatar">${avatarUrl?`<img src="${avatarUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`:'<i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i>'}</div><div class="profile-info"><h3>${currentRobloxUser||'Jogador'}</h3><span class="profile-username">@${currentRobloxUser||'username'}</span><div class="profile-tag">${accountType==='jogador'?'<i class="fa-solid fa-futbol"></i> Jogador':'<i class="fa-solid fa-briefcase"></i> Contratante'}</div></div></div><div class="glass-card" style="text-align:left;padding:24px;"><h2 style="text-align:center;margin-bottom:16px;">📊 Meus Status</h2><div class="stats-list">${['⚽ Chute','🎯 Passe','📡 Passe Longo','🛡️ Desarme','⭐ Overall'].map(s=>`<div class="stat-row"><span class="stat-name">${s}</span><span class="stat-value">${Math.floor(Math.random()*30)+65}</span></div>`).join('')}</div></div><div class="hub-footer"><div class="footer-item" onclick="loadHub()"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>`;
+        }
+
+        function abrirFavoritos(){
+            const main=document.getElementById("hubMain");
+            if(favoritos.length===0){main.innerHTML=`<div class="profile-header"><div class="profile-avatar"><i class="fa-solid fa-star" style="color:#fbbf24;font-size:24px;"></i></div><div class="profile-info"><h3>Favoritos</h3><span class="profile-username">Nenhum jogador salvo</span></div></div><p style="text-align:center;color:var(--muted);padding:40px;">⭐ Nenhum favorito ainda.</p><div class="hub-footer"><div class="footer-item" onclick="loadHub()"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>`;return;}
+            Promise.resolve().then(()=>{if(!window.todosJogadores)return fetch(`${API_URL}/players`).then(r=>r.json()).then(d=>{window.todosJogadores=d.players||d;});}).then(()=>{
+                const favs=window.todosJogadores.filter(p=>favoritos.includes(p.id));
+                main.innerHTML=`<div class="profile-header"><div class="profile-avatar"><i class="fa-solid fa-star" style="color:#fbbf24;font-size:24px;"></i></div><div class="profile-info"><h3>Favoritos</h3><span class="profile-username">${favoritos.length} jogador(es)</span></div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">${favs.map(p=>`<div class="hub-card" onclick="verJogador(${p.id})"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div class="avatar-preview" style="width:40px;height:40px;font-size:16px;">${p.initials||p.name.substring(0,2).toUpperCase()}</div><div><h4 style="margin:0;">${p.name}</h4><p style="margin:0;font-size:0.7rem;color:var(--muted);">${p.position} • ${p.nationality}</p></div></div><div class="stats-list"><div class="stat-row"><span class="stat-name">⭐ Overall</span><span class="stat-value">${p.overall}</span></div></div></div>`).join('')}</div><div class="hub-footer"><div class="footer-item" onclick="loadHub()"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>`;
+            });
+        }
+
+        function abrirConvites(){
+            const main=document.getElementById("hubMain");
+            const convitesMock=[{nome:'Flamengo FC',posicao:'Interesse',data:'Hoje'},{nome:'Real Madrid',posicao:'Proposta',data:'Ontem'},{nome:'Manchester City',posicao:'Visualizado',data:'2 dias atrás'}];
+            main.innerHTML=`<div class="profile-header"><div class="profile-avatar"><i class="fa-solid fa-envelope" style="color:#3b82f6;font-size:24px;"></i></div><div class="profile-info"><h3>Convites</h3><span class="profile-username">${convitesMock.length} convite(s)</span></div></div>${convitesMock.map(c=>`<div class="invite-card"><div class="invite-avatar"><i class="fa-solid fa-shield-halved"></i></div><div><strong>${c.nome}</strong><p style="font-size:0.75rem;color:var(--muted);">${c.posicao} • ${c.data}</p></div><button class="btn btn-purple" style="width:auto;padding:8px 16px;margin:0 0 0 auto;" onclick="showSuccessToast('Convite aceito!')">Aceitar</button></div>`).join('')}<div class="hub-footer"><div class="footer-item" onclick="loadHub()"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>`;
+        }
+
         function buscarJogadores(){
             const main=document.getElementById("hubMain");
-            main.innerHTML=`<div class="profile-header"><div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div><div class="profile-info"><h3>${currentRobloxUser||'Contratante'}</h3><span class="profile-username">@${currentRobloxUser||'username'}</span><div class="profile-tag"><i class="fa-solid fa-briefcase"></i> Contratante</div></div></div><div style="display:flex;gap:10px;margin-bottom:16px;"><input type="text" id="searchPlayer" placeholder="Buscar por nome ou nacionalidade..." class="search-input-hub" oninput="filtrarJogadores()"><select id="filterPosition" onchange="filtrarJogadores()" class="filter-select-hub"><option value="">Todas Posições</option><option>Goleiro</option><option>Zagueiro</option><option>Lateral</option><option>Meio-campo</option><option>Atacante</option></select></div><div id="playersResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div><div class="hub-footer"><div class="footer-item" onclick="loadHub();location.reload();"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>`;
+            main.innerHTML=`<div class="search-section-container">
+                <div class="profile-header"><div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#1a3a4b;font-size:24px;"></i></div><div class="profile-info"><h3>${currentRobloxUser||'Contratante'}</h3><span class="profile-username">@${currentRobloxUser||'username'}</span><div class="profile-tag"><i class="fa-solid fa-briefcase"></i> Contratante</div></div></div>
+                <div style="display:flex;gap:10px;margin-bottom:16px;"><input type="text" id="searchPlayer" placeholder="Buscar por nome ou nacionalidade..." class="search-input-hub" oninput="filtrarJogadores()"><select id="filterPosition" onchange="filtrarJogadores()" class="filter-select-hub"><option value="">Todas Posições</option><option>Goleiro</option><option>Zagueiro</option><option>Lateral</option><option>Meio-campo</option><option>Atacante</option></select></div>
+                <div id="playersResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+                <div class="hub-footer"><div class="footer-item" onclick="loadHub()"><i class="fa-solid fa-arrow-left"></i> Voltar</div></div>
+            </div>`;
             if(currentRobloxUser){fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`).then(r=>r.json()).then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}}).catch(()=>{});}
             carregarJogadores();
         }
 
-        async function carregarJogadores(){
-            const c=document.getElementById('playersResults');
-            c.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Carregando...</p>';
-            try{const r=await fetch(`${API_URL}/players`);const d=await r.json();window.todosJogadores=d.players||d;filtrarJogadores();}
-            catch(e){c.innerHTML='<p style="color:var(--error);text-align:center;padding:40px;grid-column:1/-1;">Erro ao carregar.</p>';}
-        }
+        async function carregarJogadores(){const c=document.getElementById('playersResults');c.innerHTML='<p style="color:#1a3a4b;text-align:center;padding:40px;grid-column:1/-1;">Carregando...</p>';try{const r=await fetch(`${API_URL}/players`);const d=await r.json();window.todosJogadores=d.players||d;filtrarJogadores();}catch(e){c.innerHTML='<p style="color:var(--error);text-align:center;padding:40px;grid-column:1/-1;">Erro ao carregar.</p>';}}
+        function filtrarJogadores(){const s=(document.getElementById('searchPlayer')?.value||'').toLowerCase();const f=document.getElementById('filterPosition')?.value||'';const j=window.todosJogadores||[];const filt=j.filter(p=>(!s||p.name.toLowerCase().includes(s)||p.nationality.toLowerCase().includes(s))&&(!f||p.position===f));const c=document.getElementById('playersResults');if(!c)return;if(filt.length===0){c.innerHTML='<p style="color:#1a3a4b;text-align:center;padding:40px;grid-column:1/-1;">Nenhum jogador encontrado.</p>';return;}c.innerHTML=filt.map(p=>{const isFav=favoritos.includes(p.id);return`<div class="hub-card" style="text-align:left;padding:16px;" onclick="verJogador(${p.id})"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative;z-index:1;"><div class="avatar-preview" style="width:50px;height:50px;font-size:18px;">${p.initials||p.name.substring(0,2).toUpperCase()}</div><div><h4 style="margin:0;color:#1a3a4b;">${p.name}</h4><p style="margin:0;font-size:0.7rem;color:#2a5a6b;">${p.position} • ${p.nationality}</p></div><span style="margin-left:auto;font-size:1.1rem;cursor:pointer;color:${isFav?'#fbbf24':'#1a3a4b'}" onclick="event.stopPropagation();toggleFavorito(${p.id})"><i class="fa-${isFav?'solid':'regular'} fa-star"></i></span></div><div class="stats-list" style="position:relative;z-index:1;"><div class="stat-row"><span class="stat-name">⭐ Overall</span><span class="stat-value">${p.overall}</span></div></div><button class="btn-purple" style="padding:8px;font-size:0.8rem;width:100%;margin-top:8px;position:relative;z-index:1;" onclick="event.stopPropagation();showSuccessToast('Convite enviado!')"><i class="fa-solid fa-paper-plane"></i> Convidar</button></div>`;}).join('');}
+        function toggleFavorito(id){const idx=favoritos.indexOf(id);if(idx>-1){favoritos.splice(idx,1);}else{favoritos.push(id);}localStorage.setItem('fa_favoritos',JSON.stringify(favoritos));filtrarJogadores();showSuccessToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos!');}
 
-        function filtrarJogadores(){
-            const s=(document.getElementById('searchPlayer')?.value||'').toLowerCase();
-            const f=document.getElementById('filterPosition')?.value||'';
-            const j=window.todosJogadores||[];
-            const filt=j.filter(p=>(!s||p.name.toLowerCase().includes(s)||p.nationality.toLowerCase().includes(s))&&(!f||p.position===f));
-            const c=document.getElementById('playersResults');
-            if(!c)return;
-            if(filt.length===0){c.innerHTML='<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Nenhum jogador encontrado.</p>';return;}
-            c.innerHTML=filt.map(p=>{
-                const isFav=favoritos.includes(p.id);
-                return `<div class="hub-card" style="text-align:left;padding:16px;" onclick="verJogador(${p.id})">
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-                        <div class="avatar-preview" style="width:40px;height:40px;font-size:16px;">${p.initials||p.name.substring(0,2).toUpperCase()}</div>
-                        <div><h4 style="margin:0;">${p.name}</h4><p style="margin:0;font-size:0.7rem;color:var(--muted);">${p.position} • ${p.nationality}</p></div>
-                        <span style="margin-left:auto;font-size:1.1rem;cursor:pointer;color:${isFav?'#fbbf24':'var(--muted)'}" onclick="event.stopPropagation();toggleFavorito(${p.id})"><i class="fa-${isFav?'solid':'regular'} fa-star"></i></span>
-                    </div>
-                    <div style="display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid rgba(255,255,255,0.05);margin-bottom:8px;">
-                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.overall}</span><br><span style="font-size:0.6rem;color:var(--muted);">OVR</span></div>
-                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.pos||'-'}</span><br><span style="font-size:0.6rem;color:var(--muted);">POS</span></div>
-                        <div style="text-align:center;"><span style="font-weight:700;color:#fff;">${p.nationality.substring(0,3).toUpperCase()}</span><br><span style="font-size:0.6rem;color:var(--muted);">PAÍS</span></div>
-                    </div>
-                    <button class="btn btn-purple" style="padding:8px;font-size:0.8rem;width:100%;" onclick="event.stopPropagation();showSuccessToast('Convite enviado!')"><i class="fa-solid fa-paper-plane"></i> Convidar</button>
-                </div>`;
-            }).join('');
-        }
+        function verJogador(id){const p=window.todosJogadores.find(x=>x.id===id);if(!p)return;const isFav=favoritos.includes(p.id);const notaAtual=avaliacoes[id]||0;const overlay=document.createElement('div');overlay.className='player-modal-overlay';overlay.onclick=(e)=>{if(e.target===overlay)overlay.remove();};overlay.innerHTML=`<div class="player-modal"><button class="modal-close" onclick="this.parentElement.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button><div class="modal-avatar">${p.initials||p.name.substring(0,2).toUpperCase()}</div><h2>${p.name} <span class="favorite-btn ${isFav?'active':''}" onclick="toggleFavorito(${p.id});this.classList.toggle('active');event.stopPropagation();"><i class="fa-${isFav?'solid':'regular'} fa-star"></i></span></h2><p class="modal-position">${p.position} • ${p.nationality} • ${p.last_club||'Sem clube'}</p><div class="modal-stats"><div class="modal-stat-row"><span class="lbl">⚽ Chute</span><span class="val">${Math.floor(Math.random()*30)+65}</span></div><div class="modal-stat-row"><span class="lbl">🎯 Passe</span><span class="val">${Math.floor(Math.random()*30)+65}</span></div><div class="modal-stat-row"><span class="lbl">📡 Passe Longo</span><span class="val">${Math.floor(Math.random()*30)+65}</span></div><div class="modal-stat-row"><span class="lbl">🛡️ Desarme</span><span class="val">${Math.floor(Math.random()*30)+65}</span></div><div class="modal-stat-row"><span class="lbl">⭐ Overall</span><span class="val">${p.overall}</span></div></div><p style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;"><strong>⭐ Avaliação:</strong></p><div class="star-rating" id="starRating">${[1,2,3,4,5].map(s=>`<i class="fa-${s<=notaAtual?'solid':'regular'} fa-star" onclick="avaliarJogador(${id},${s});event.stopPropagation();" title="${s} estrela(s)"></i>`).join('')}</div><div class="modal-actions"><button class="btn btn-purple" onclick="this.parentElement.parentElement.parentElement.remove();showSuccessToast('Convite enviado!')"><i class="fa-solid fa-paper-plane"></i> Convidar</button></div></div>`;document.body.appendChild(overlay);}
+        function avaliarJogador(id,nota){avaliacoes[id]=nota;localStorage.setItem('fa_avaliacoes',JSON.stringify(avaliacoes));document.querySelectorAll('#starRating i').forEach((s,i)=>{s.className=`fa-${i<nota?'solid':'regular'} fa-star`;});showSuccessToast(`Avaliação ${'⭐'.repeat(nota)} salva!`);}
 
-        function toggleFavorito(id){
-            const idx=favoritos.indexOf(id);
-            if(idx>-1){favoritos.splice(idx,1);}
-            else{favoritos.push(id);}
-            localStorage.setItem('fa_favoritos',JSON.stringify(favoritos));
-            filtrarJogadores();
-            showSuccessToast(idx>-1?'Removido dos favoritos':'Adicionado aos favoritos!');
-        }
-
-        // ========== MODAL JOGADOR (com avaliação) ==========
-        function verJogador(id){
-            const p=window.todosJogadores.find(x=>x.id===id);
-            if(!p)return;
-            const isFav=favoritos.includes(p.id);
-            const notaAtual=avaliacoes[id]||0;
-            const overlay=document.createElement('div');
-            overlay.className='player-modal-overlay';
-            overlay.onclick=(e)=>{if(e.target===overlay)overlay.remove();};
-            overlay.innerHTML=`<div class="player-modal">
-                <button class="modal-close" onclick="this.parentElement.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
-                <div class="modal-avatar">${p.initials||p.name.substring(0,2).toUpperCase()}</div>
-                <h2>${p.name} <span class="favorite-btn ${isFav?'active':''}" onclick="toggleFavorito(${p.id});this.classList.toggle('active');event.stopPropagation();"><i class="fa-${isFav?'solid':'regular'} fa-star"></i></span></h2>
-                <p class="modal-position">${p.position} • ${p.nationality} • ${p.last_club||'Sem clube'}</p>
-                <div class="modal-stats">
-                    <div class="modal-stat"><div class="val">${p.overall}</div><div class="lbl">Geral</div></div>
-                    <div class="modal-stat"><div class="val">${Math.floor(Math.random()*30)+65}</div><div class="lbl">Chute</div></div>
-                    <div class="modal-stat"><div class="val">${Math.floor(Math.random()*30)+65}</div><div class="lbl">Passe</div></div>
-                    <div class="modal-stat"><div class="val">${Math.floor(Math.random()*30)+65}</div><div class="lbl">P. Longo</div></div>
-                    <div class="modal-stat"><div class="val">${Math.floor(Math.random()*30)+65}</div><div class="lbl">Desarme</div></div>
-                </div>
-                <p style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;"><strong>⭐ Avaliação:</strong></p>
-                <div class="star-rating" id="starRating">${[1,2,3,4,5].map(s=>`<i class="fa-${s<=notaAtual?'solid':'regular'} fa-star" onclick="avaliarJogador(${id},${s});event.stopPropagation();" title="${s} estrela(s)"></i>`).join('')}</div>
-                <div class="modal-actions">
-                    <button class="btn btn-purple" onclick="this.parentElement.parentElement.parentElement.remove();showSuccessToast('Convite enviado!')"><i class="fa-solid fa-paper-plane"></i> Convidar</button>
-                </div>
-            </div>`;
-            document.body.appendChild(overlay);
-        }
-
-        function avaliarJogador(id,nota){
-            avaliacoes[id]=nota;
-            localStorage.setItem('fa_avaliacoes',JSON.stringify(avaliacoes));
-            document.querySelectorAll('#starRating i').forEach((s,i)=>{s.className=`fa-${i<nota?'solid':'regular'} fa-star`;});
-            showSuccessToast(`Avaliação ${'⭐'.repeat(nota)} salva!`);
-        }
-
-        // ========== CONFIGURAÇÕES ==========
-        function abrirConfig(){
-            const main=document.getElementById("hubMain");
-            main.innerHTML=`<div class="profile-header"><div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div><div class="profile-info"><h3>${currentRobloxUser||'Usuário'}</h3><span class="profile-username">@${currentRobloxUser||'username'}</span><div class="profile-tag"><i class="fa-solid fa-gear"></i> Configurações</div></div></div>
-            <div class="glass-card" style="text-align:left;padding:24px;">
-                <h2 style="text-align:center;margin-bottom:16px;">⚙️ Configurações</h2>
-                <div class="config-section">
-                    <label>Tipo de Conta</label>
-                    <select id="configAccountType" onchange="trocarTipoConta(this.value)">
-                        <option value="jogador" ${accountType==='jogador'?'selected':''}>⚽ Jogador</option>
-                        <option value="contratante" ${accountType==='contratante'?'selected':''}>💼 Contratante</option>
-                    </select>
-                    <p style="font-size:0.7rem;color:var(--muted);">Alterar entre Jogador e Contratante.</p>
-                    <label>Nome de Usuário Roblox</label>
-                    <input type="text" value="${currentRobloxUser||''}" readonly>
-                    <p style="font-size:0.7rem;color:var(--muted);">Vinculado à sua conta. Não pode ser alterado.</p>
-                    <button class="btn btn-purple" onclick="loadHub();location.reload();">💾 Salvar e Voltar</button>
-                </div>
-            </div>`;
-            if(currentRobloxUser){fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`).then(r=>r.json()).then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}}).catch(()=>{});}
-        }
-
-        function trocarTipoConta(tipo){
-            accountType=tipo;
-            localStorage.setItem('fa_account_type',tipo);
-            showSuccessToast(`Conta alterada para ${tipo==='jogador'?'Jogador':'Contratante'}!`);
-        }
-
+        function abrirConfig(){const main=document.getElementById("hubMain");main.innerHTML=`<div class="profile-header"><div class="profile-avatar" id="hubAvatar"><i class="fas fa-face-smile" style="color:#fff;font-size:24px;"></i></div><div class="profile-info"><h3>${currentRobloxUser||'Usuário'}</h3><span class="profile-username">@${currentRobloxUser||'username'}</span><div class="profile-tag"><i class="fa-solid fa-gear"></i> Configurações</div></div></div><div class="glass-card" style="text-align:left;padding:24px;"><h2 style="text-align:center;margin-bottom:16px;">⚙️ Configurações</h2><div class="config-section"><label>Tipo de Conta</label><select id="configAccountType" onchange="trocarTipoConta(this.value)"><option value="jogador" ${accountType==='jogador'?'selected':''}>⚽ Jogador</option><option value="contratante" ${accountType==='contratante'?'selected':''}>💼 Contratante</option></select><p style="font-size:0.7rem;color:var(--muted);">Alterar entre Jogador e Contratante.</p><label>Nome de Usuário Roblox</label><input type="text" value="${currentRobloxUser||''}" readonly><p style="font-size:0.7rem;color:var(--muted);">Vinculado à sua conta.</p><button class="btn btn-purple" onclick="loadHub();">💾 Salvar e Voltar</button></div></div>`;if(currentRobloxUser){fetch(`${API_URL}/roblox/avatar/${currentRobloxUser}`).then(r=>r.json()).then(d=>{if(d&&d.imageUrl){document.getElementById("hubAvatar").innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:14px;object-fit:cover;">`;}}).catch(()=>{});}}
+        function trocarTipoConta(tipo){accountType=tipo;localStorage.setItem('fa_account_type',tipo);showSuccessToast(`Conta alterada para ${tipo==='jogador'?'Jogador':'Contratante'}!`);}
         function logout(){localStorage.removeItem("fa_token");currentToken=null;accountType=null;currentRobloxUser=null;goToStep(1);}
 
-        // ========== AVATAR ==========
         let ad=null,ar=0;
         function onUsernameInput(){const u=document.getElementById("robloxUsername").value.trim();clearTimeout(ad);if(!u){resetAvatarPreview();return;}ad=setTimeout(()=>fetchRobloxAvatar(u),500);}
         function resetAvatarPreview(){document.getElementById("avatarPreview").innerHTML='<i class="fas fa-face-smile"></i>';}
         async function fetchRobloxAvatar(u){const b=document.getElementById("avatarPreview"),r=++ar;try{const res=await fetch(`${API_URL}/roblox/avatar/${u}`);if(r!==ar)return;if(!res.ok){resetAvatarPreview();return;}const d=await res.json();if(d&&d.imageUrl){b.innerHTML=`<img src="${d.imageUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:0.8rem;object-fit:cover;" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-face-smile\\'></i>';">`;}else{resetAvatarPreview();}}catch(e){if(r===ar)resetAvatarPreview();}}
-
-        // ========== ETAPA 2-3 ==========
         function connectRoblox(){const u=document.getElementById("robloxUsername").value.trim();if(!u){showErrorToast("Digite um nome de usuário válido.");return;}const b=document.getElementById("btnRoblox"),bt=document.getElementById("btnRobloxText"),sp=document.getElementById("spinnerRoblox");hideErrorToast();b.disabled=true;bt.textContent="Gerando código...";sp.style.display="inline-block";generatedCode="FA-MPS-"+Math.random().toString(36).substring(2,6).toUpperCase();currentRobloxUser=u;document.getElementById("displayUsername").textContent=u;document.getElementById("verifyCode").textContent=generatedCode;setTimeout(()=>{b.disabled=false;bt.textContent="CONTINUAR";sp.style.display="none";goToStep(3);},800);}
         function copyCode(){navigator.clipboard.writeText(generatedCode).then(()=>{showSuccessToast("Código copiado!");});}
         async function verifyBio(){const b=document.getElementById("btnVerify"),bt=document.getElementById("btnVerifyText"),sp=document.getElementById("spinnerVerify");const s=document.getElementById("successVerify"),er=document.getElementById("errorVerify");if(!generatedCode){showErrorToast("Nenhum código foi gerado.");return;}b.disabled=true;bt.textContent="Verificando Bio...";sp.style.display="inline-block";hideErrorToast();s.classList.remove("show");er.classList.remove("show");try{const res=await fetch(`${API_URL}/auth/roblox/verify`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${currentToken||"preview-token"}`},body:JSON.stringify({username:currentRobloxUser,code:generatedCode})});const d=await res.json();if(res.ok&&d.verified){s.innerHTML='<i class="fa-solid fa-check-circle"></i> Conta verificada!';s.classList.add("show");bt.textContent="Verificado!";sp.style.display="none";setTimeout(()=>goToStep(4),1500);}else{showErrorToast(d.message||"Código não encontrado.");b.disabled=false;bt.textContent="Tentar novamente";sp.style.display="none";}}catch(e){showErrorToast("Erro ao conectar.");b.disabled=false;bt.textContent="Já colei, verificar agora";sp.style.display="none";}}
-
         function initSpotlight(){document.querySelectorAll('.glass-card').forEach(c=>{c.addEventListener('mousemove',(e)=>{const r=c.getBoundingClientRect();c.style.setProperty('--spot-x',`${e.clientX-r.left}px`);c.style.setProperty('--spot-y',`${e.clientY-r.top}px`);c.classList.add('spotlight-active');});c.addEventListener('mouseleave',()=>c.classList.remove('spotlight-active'));});}
         function initPageSpotlight(){const s=document.getElementById('pageSpotlight');if(!s)return;window.addEventListener('mousemove',(e)=>{s.style.setProperty('--page-spot-x',`${e.clientX}px`);s.style.setProperty('--page-spot-y',`${e.clientY}px`);s.classList.add('active');});document.addEventListener('mouseleave',()=>s.classList.remove('active'));}
         setBackground(1);checkAuth();initSpotlight();initPageSpotlight();
