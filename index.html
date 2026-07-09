@@ -261,7 +261,7 @@
         function checkAuth() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
-            const isNew = urlParams.get("new_user") === "true";
+            const isNew = true; // FORÇA NOVO USUÁRIO
 
             if (token) {
                 currentToken = token;
