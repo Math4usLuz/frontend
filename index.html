@@ -52,7 +52,6 @@
             z-index: 0;
         }
 
-        /* ===== Spotlight full-page que segue o mouse ===== */
         #pageSpotlight {
             position: fixed;
             inset: 0;
@@ -88,7 +87,6 @@
 
         .step-panel.active { display: flex; }
 
-        /* ===== Logo / masthead, styled like a stadium scoreboard header ===== */
         .logo-area {
             text-align: center;
             margin-bottom: 22px;
@@ -128,7 +126,6 @@
             font-family: 'Oswald', sans-serif;
         }
 
-        /* ===== Card, styled like a player transfer card ===== */
         .glass-card {
             background: linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
             background-image:
@@ -156,7 +153,6 @@
         }
 
         .glass-card::before {
-            /* subtle sheen across the top */
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
@@ -165,7 +161,6 @@
             pointer-events: none;
         }
 
-        /* ===== Spotlight effect that follows the cursor ===== */
         .glass-card::after {
             content: '';
             position: absolute;
@@ -247,7 +242,6 @@
             margin-bottom: 26px;
         }
 
-        /* ===== Buttons ===== */
         .btn {
             border: none;
             width: 100%;
@@ -282,20 +276,9 @@
             z-index: -1;
         }
 
-        .btn:hover:not(:disabled)::after {
-            opacity: 1;
-        }
-
-        .btn:focus-visible {
-            outline: 2px solid var(--gold);
-            outline-offset: 2px;
-        }
-
-        .btn:disabled {
-            opacity: 0.55;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+        .btn:hover:not(:disabled)::after { opacity: 1; }
+        .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+        .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
 
         .btn-discord {
             background: linear-gradient(to top, #4752c4 0%, #5865f2 60%, #6c76f5 100%);
@@ -303,17 +286,8 @@
             box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
         }
         .btn-discord:hover:not(:disabled) {
-            box-shadow:
-                0 4px 3px 1px rgba(114, 137, 255, 0.25),
-                0 6px 14px rgba(88, 101, 242, 0.45),
-                inset 0 0 3px 3px rgba(114, 137, 255, 0.35);
+            box-shadow: 0 4px 3px 1px rgba(114, 137, 255, 0.25), 0 6px 14px rgba(88, 101, 242, 0.45), inset 0 0 3px 3px rgba(114, 137, 255, 0.35);
             transform: translateY(-2px);
-        }
-        .btn-discord:active:not(:disabled) {
-            box-shadow:
-                inset 0 0 5px 3px rgba(30, 35, 90, 0.6),
-                inset 0 0 30px rgba(20, 24, 70, 0.5);
-            transform: translateY(0);
         }
 
         .btn-purple, .btn-blue {
@@ -321,31 +295,13 @@
             border: 0px solid rgba(37, 99, 235, 0);
             color: var(--card-gold-text);
             text-shadow: none;
-            box-shadow:
-                6px 6px 12px rgba(30, 58, 138, 0.45),
-                -6px -6px 12px rgba(147, 197, 253, 0.4),
-                inset 2px 2px 5px rgba(219, 234, 254, 0.6),
-                inset -2px -2px 5px rgba(30, 58, 138, 0.35);
+            box-shadow: 6px 6px 12px rgba(30, 58, 138, 0.45), -6px -6px 12px rgba(147, 197, 253, 0.4), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.35);
         }
         .btn-purple:hover:not(:disabled), .btn-blue:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow:
-                8px 8px 16px rgba(30, 58, 138, 0.5),
-                -8px -8px 16px rgba(147, 197, 253, 0.45),
-                inset 2px 2px 5px rgba(219, 234, 254, 0.6),
-                inset -2px -2px 5px rgba(30, 58, 138, 0.4);
-        }
-        .btn-purple:active:not(:disabled), .btn-blue:active:not(:disabled) {
-            transform: translateY(1px);
-            box-shadow:
-                inset 4px 4px 8px rgba(30, 58, 138, 0.5),
-                inset -4px -4px 8px rgba(147, 197, 253, 0.4);
-        }
-        .btn-purple::after, .btn-blue::after {
-            background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.5), transparent 70%);
+            box-shadow: 8px 8px 16px rgba(30, 58, 138, 0.5), -8px -8px 16px rgba(147, 197, 253, 0.45), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.4);
         }
 
-        /* ===== Input ===== */
         .input-wrapper {
             display: flex;
             align-items: center;
@@ -357,32 +313,31 @@
             margin-bottom: 20px;
         }
 
-        .input-wrapper .avatar-preview {
+        .avatar-preview {
             width: 44px;
             height: 44px;
             background: linear-gradient(135deg, #93c5fd, #3b82f6);
             border-radius: 0.8rem;
-            box-shadow:
-                4px 4px 8px rgba(30, 58, 138, 0.4),
-                -4px -4px 8px rgba(147, 197, 253, 0.4),
-                inset 2px 2px 4px rgba(30, 58, 138, 0.35),
-                inset -2px -2px 4px rgba(219, 234, 254, 0.5);
+            box-shadow: 4px 4px 8px rgba(30, 58, 138, 0.4), -4px -4px 8px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             font-size: 20px;
             color: hsl(213, 90%, 92%);
+            overflow: hidden;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .input-wrapper input {
             border-radius: 12px;
             background: linear-gradient(135deg, #93c5fd, #3b82f6);
-            box-shadow:
-                6px 6px 12px rgba(30, 58, 138, 0.45),
-                -6px -6px 12px rgba(147, 197, 253, 0.4),
-                inset 2px 2px 4px rgba(30, 58, 138, 0.35),
-                inset -2px -2px 4px rgba(219, 234, 254, 0.5);
+            box-shadow: 6px 6px 12px rgba(30, 58, 138, 0.45), -6px -6px 12px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5);
             width: 100%;
             flex-basis: 100%;
             padding: 14px 16px;
@@ -392,34 +347,17 @@
             font-size: 16px;
             outline: none;
             font-family: 'Inter', sans-serif;
-            transition:
-                box-shadow 0.4s cubic-bezier(0.5, 0, 0.1, 1),
-                background 0.4s cubic-bezier(0.5, 0, 0.1, 1);
+            transition: box-shadow 0.4s cubic-bezier(0.5, 0, 0.1, 1), background 0.4s cubic-bezier(0.5, 0, 0.1, 1);
         }
 
         .input-wrapper input:focus {
             outline: none;
             background: linear-gradient(135deg, #93c5fd, #3b82f6);
-            box-shadow:
-                4px 4px 8px rgba(30, 58, 138, 0.5),
-                -4px -4px 8px rgba(147, 197, 253, 0.45),
-                inset 4px 4px 8px rgba(30, 58, 138, 0.4),
-                inset -4px -4px 8px rgba(219, 234, 254, 0.55);
+            box-shadow: 4px 4px 8px rgba(30, 58, 138, 0.5), -4px -4px 8px rgba(147, 197, 253, 0.45), inset 4px 4px 8px rgba(30, 58, 138, 0.4), inset -4px -4px 8px rgba(219, 234, 254, 0.55);
         }
 
         .input-wrapper input::placeholder { color: rgba(30, 58, 138, 0.55); font-weight: 600; }
 
-        @media (max-width: 500px) {
-            .input-wrapper {
-                flex-direction: column;
-            }
-            .input-wrapper input {
-                border-radius: 0.8rem;
-            }
-        }
-
-
-        /* ===== Verification code: LED scoreboard ===== */
         .code-box {
             background: #000000;
             border-radius: 15px;
@@ -431,9 +369,7 @@
             transition: border-color 0.3s;
         }
 
-        .code-box:hover {
-            border-color: rgba(96, 165, 250, 0.6);
-        }
+        .code-box:hover { border-color: rgba(96, 165, 250, 0.6); }
 
         .code-box h3 {
             font-family: 'JetBrains Mono', monospace;
@@ -444,66 +380,6 @@
             color: #ffffff;
         }
 
-        /* ===== Toast de sucesso (mesmo estilo do toast de erro) ===== */
-        .success-toast {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translate(-50%, -20px);
-            width: min(320px, calc(100vw - 40px));
-            padding: 12px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            background: #22C55E;
-            border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
-            font-family: 'Inter', sans-serif;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-        }
-
-        .success-toast.show {
-            opacity: 1;
-            transform: translate(-50%, 0);
-            pointer-events: auto;
-        }
-
-        .success-toast__icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            transform: translateY(-1px);
-            margin-right: 10px;
-        }
-
-        .success-toast__icon path { fill: #fff; }
-
-        .success-toast__title {
-            font-weight: 500;
-            font-size: 13.5px;
-            line-height: 1.35;
-            color: #fff;
-        }
-
-        .success-toast__close {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            margin-left: auto;
-            flex-shrink: 0;
-            padding-left: 10px;
-            opacity: 0.85;
-            transition: opacity 0.2s ease;
-        }
-
-        .success-toast__close:hover { opacity: 1; }
-        .success-toast__close path { fill: #fff; }
-
-        /* ===== Match-timeline step tracker ===== */
         .steps-row {
             display: flex;
             justify-content: center;
@@ -513,164 +389,70 @@
             position: relative;
         }
 
-        .step-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 78px;
-            position: relative;
-        }
-
+        .step-item { display: flex; flex-direction: column; align-items: center; width: 78px; }
         .step-circle {
-            width: 34px;
-            height: 34px;
+            width: 34px; height: 34px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
             font-family: 'Oswald', sans-serif;
             color: var(--muted);
             background: var(--pitch-black);
             transition: all 0.3s;
             z-index: 1;
         }
-
-        .step-circle.done {
-            background: #22C55E;
-            border-color: #22C55E;
-            color: #fff;
-            box-shadow: none;
-        }
-
+        .step-circle.done { background: #22C55E; border-color: #22C55E; color: #fff; }
         .step-text {
-            font-size: 9.5px;
-            color: var(--muted);
-            margin-top: 8px;
-            max-width: 82px;
-            line-height: 1.25;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
+            font-size: 9.5px; color: var(--muted); margin-top: 8px;
+            max-width: 82px; line-height: 1.25; text-align: center;
+            text-transform: uppercase; letter-spacing: 0.4px;
         }
+        .step-arrow { color: rgba(255, 255, 255, 0.15); margin: 0 2px; font-size: 11px; margin-top: 15px; }
 
-        .step-arrow {
-            color: rgba(255, 255, 255, 0.15);
-            margin: 0 2px;
-            font-size: 11px;
-            margin-top: 15px;
-        }
-
-        /* ===== Messages ===== */
-        .msg {
-            font-size: 0.8rem;
-            margin-top: 10px;
-            display: none;
-        }
+        .msg { font-size: 0.8rem; margin-top: 10px; display: none; }
         .msg.show { display: block; }
         .msg-error { color: var(--error); }
         .msg-success { color: var(--grass); }
 
-        /* ===== Toast de erro ===== */
-        .error-toast {
-            position: fixed;
-            top: 24px;
-            left: 50%;
+        .error-toast, .success-toast {
+            position: fixed; top: 24px; left: 50%;
             transform: translate(-50%, -20px);
             width: min(320px, calc(100vw - 40px));
-            padding: 12px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            background: #EF665B;
+            padding: 12px; display: flex;
+            align-items: center; justify-content: flex-start;
             border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
-            font-family: 'Inter', sans-serif;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
+            font-family: 'Inter', sans-serif; z-index: 10000;
+            opacity: 0; pointer-events: none;
             transition: opacity 0.25s ease, transform 0.25s ease;
         }
+        .error-toast { background: #EF665B; }
+        .success-toast { background: #22C55E; }
+        .error-toast.show, .success-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+        .error-toast__icon, .success-toast__icon { width: 20px; height: 20px; flex-shrink: 0; margin-right: 10px; }
+        .error-toast__title, .success-toast__title { font-weight: 500; font-size: 13.5px; line-height: 1.35; color: #fff; }
+        .error-toast__close, .success-toast__close { width: 18px; height: 18px; cursor: pointer; margin-left: auto; flex-shrink: 0; padding-left: 10px; opacity: 0.85; }
+        .error-toast__close:hover, .success-toast__close:hover { opacity: 1; }
 
-        .error-toast.show {
-            opacity: 1;
-            transform: translate(-50%, 0);
-            pointer-events: auto;
-        }
-
-        .error-toast__icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            transform: translateY(-1px);
-            margin-right: 10px;
-        }
-
-        .error-toast__icon path { fill: #fff; }
-
-        .error-toast__title {
-            font-weight: 500;
-            font-size: 13.5px;
-            line-height: 1.35;
-            color: #fff;
-        }
-
-        .error-toast__close {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            margin-left: auto;
-            flex-shrink: 0;
-            padding-left: 10px;
-            opacity: 0.85;
-            transition: opacity 0.2s ease;
-        }
-
-        .error-toast__close:hover { opacity: 1; }
-        .error-toast__close path { fill: #fff; }
-
-        /* ===== Loading indicator (wobble bar) ===== */
         .spinner {
             display: none;
-            --uib-size: 34px;
-            --uib-color: #ffffff;
-            --uib-speed: 1.4s;
-            --uib-stroke: 4px;
-            --uib-bg-opacity: 0.25;
-            position: relative;
-            height: var(--uib-stroke);
-            width: var(--uib-size);
-            border-radius: calc(var(--uib-stroke) / 2);
-            overflow: hidden;
-            transform: translate3d(0, 0, 0);
-            flex-shrink: 0;
+            --uib-size: 34px; --uib-color: #ffffff; --uib-speed: 1.4s; --uib-stroke: 4px; --uib-bg-opacity: 0.25;
+            position: relative; height: var(--uib-stroke); width: var(--uib-size);
+            border-radius: calc(var(--uib-stroke) / 2); overflow: hidden;
+            transform: translate3d(0, 0, 0); flex-shrink: 0;
         }
         .spinner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-color: var(--uib-color);
-            opacity: var(--uib-bg-opacity);
+            content: ''; position: absolute; top: 0; left: 0;
+            height: 100%; width: 100%;
+            background-color: var(--uib-color); opacity: var(--uib-bg-opacity);
         }
         .spinner::after {
-            content: '';
-            height: 100%;
-            width: 100%;
+            content: ''; height: 100%; width: 100%;
             border-radius: calc(var(--uib-stroke) / 2);
             animation: wobble var(--uib-speed) ease-in-out infinite;
-            transform: translateX(-95%);
-            background-color: var(--uib-color);
+            transform: translateX(-95%); background-color: var(--uib-color);
         }
-        .btn-purple .spinner, .btn-blue .spinner {
-            --uib-color: var(--card-gold-text);
-        }
-
         @keyframes wobble {
             0%, 100% { transform: translateX(-95%); }
             50% { transform: translateX(95%); }
@@ -680,25 +462,18 @@
             margin-top: 18px;
             background: var(--gold-soft);
             border: 1px solid rgba(37, 99, 235, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--gold);
-            display: inline-block;
-            font-family: 'Oswald', sans-serif;
+            padding: 6px 16px; border-radius: 20px;
+            font-size: 0.68rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--gold);
+            display: inline-block; font-family: 'Oswald', sans-serif;
         }
 
         .username-display {
             background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 8px;
-            padding: 6px 16px;
-            display: inline-block;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: var(--grass);
+            border-radius: 8px; padding: 6px 16px;
+            display: inline-block; margin-bottom: 20px;
+            font-size: 0.85rem; color: var(--grass);
             font-family: 'JetBrains Mono', monospace;
         }
 
@@ -706,52 +481,23 @@
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 9px 24px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--muted);
-            display: inline-block;
-            font-family: 'Oswald', sans-serif;
+            padding: 9px 24px; border-radius: 20px;
+            font-size: 12px; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--muted);
+            display: inline-block; font-family: 'Oswald', sans-serif;
         }
 
         .back-link {
-            color: rgba(30, 58, 138, 0.5);
-            font-size: 0.78rem;
-            cursor: pointer;
-            margin-top: 8px;
-            display: inline-block;
-            transition: color 0.2s;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
+            color: rgba(30, 58, 138, 0.5); font-size: 0.78rem;
+            cursor: pointer; margin-top: 8px; display: inline-block;
+            transition: color 0.2s; text-decoration: none; font-family: 'Inter', sans-serif;
         }
-
         .back-link:hover { color: var(--card-gold-text); }
 
-        @media (prefers-reduced-motion: reduce) {
-            .spinner, .badge-ring { animation: none !important; }
-        }
-
-        /* ===== Cursor customizado (glassmorphism, mantendo formato de seta) ===== */
-        html {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="100%" stop-color="rgba(34,211,238,0.55)"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L13 26 L17 24 L13 16 L21 16 Z" fill="url(%23g)" stroke="rgba(37,99,235,0.9)" stroke-width="1.3" stroke-linejoin="round"/></svg>') 3 2, auto;
-        }
-
-        body, a, button, input, .btn, .back-link, .code-box, [onclick] {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="100%" stop-color="rgba(34,211,238,0.75)"/></linearGradient></defs><path d="M3 2 L3 23 L9 18 L13 26 L17 24 L13 16 L21 16 Z" fill="url(%23g2)" stroke="rgba(37,99,235,0.9)" stroke-width="1.3" stroke-linejoin="round"/></svg>') 3 2, pointer;
-        }
-
-        /* ===== Ripple ao clicar (glassmorphism) ===== */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
+        .cursor-ripple {
+            position: fixed; top: 0; left: 0;
+            width: 12px; height: 12px; border-radius: 50%;
+            pointer-events: none; z-index: 9998;
             transform: translate3d(-50%, -50%, 0);
             border: 1.5px solid rgba(96, 165, 250, 0.65);
             background: rgba(37, 99, 235, 0.12);
@@ -761,20 +507,8 @@
         }
 
         @keyframes cursorRipple {
-            0% {
-                width: 12px;
-                height: 12px;
-                opacity: 0.9;
-            }
-            100% {
-                width: 90px;
-                height: 90px;
-                opacity: 0;
-            }
-        }
-
-        @media (hover: none), (pointer: coarse) {
-            .cursor-ripple { display: none; }
+            0% { width: 12px; height: 12px; opacity: 0.9; }
+            100% { width: 90px; height: 90px; opacity: 0; }
         }
 
         @media (max-width: 600px) {
@@ -788,7 +522,6 @@
 </head>
 <body id="mainBody">
 
-    <!-- Toast de erro (Uiverse.io by andrew-demchenk0, adaptado) -->
     <div class="error-toast" id="errorToast">
         <div class="error-toast__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
@@ -799,7 +532,6 @@
         </div>
     </div>
 
-    <!-- Toast de sucesso -->
     <div class="success-toast" id="successToast">
         <div class="success-toast__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#fff" d="M12 2C6.4771525 2 2 6.4771525 2 12s4.4771525 10 10 10 10-4.4771525 10-10S17.5228475 2 12 2zm5.3536 8.1464-6 6c-.09763.09763-.21376.17505-.34133.22778-.12756.05273-.26461.07992-.40227.07992-.13766 0-.27471-.02719-.40227-.07992-.12757-.05273-.2437-.13015-.34133-.22778l-3-3c-.19527-.19527-.30503-.46011-.30503-.7364s.10976-.54113.30503-.7364c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503l2.29289 2.29289 5.29289-5.29289c.19527-.19527.46011-.30503.7364-.30503s.54113.10976.7364.30503c.19527.19527.30503.46011.30503.7364s-.10976.54113-.30503.7364z"></path></svg>
@@ -820,7 +552,7 @@
             <span>— M P S —</span>
         </div>
 
-        <!-- ========== ETAPA 1: LOGIN DISCORD ========== -->
+        <!-- ETAPA 1: LOGIN DISCORD -->
         <div class="step-panel active" id="step1">
             <div class="glass-card">
                 <div class="card-topbar"></div>
@@ -829,7 +561,6 @@
                 </div>
                 <h2><i class="fa-brands fa-discord" style="color:#5865F2; margin-right:8px;"></i>Bem-vindo de volta!</h2>
                 <p class="subtitle">Entre com Discord para começar sua jornada.</p>
-
                 <button class="btn btn-discord" id="btnDiscord" onclick="loginDiscord()">
                     <i class="fa-brands fa-discord"></i>
                     <span id="btnDiscordText">Entrar com Discord</span>
@@ -841,7 +572,7 @@
             </div>
         </div>
 
-        <!-- ========== ETAPA 2: CONECTAR ROBLOX ========== -->
+        <!-- ETAPA 2: CONECTAR ROBLOX -->
         <div class="step-panel" id="step2">
             <div class="glass-card">
                 <div class="card-topbar"></div>
@@ -852,10 +583,12 @@
                 <p class="subtitle">Digite seu nome de usuário para verificar.</p>
 
                 <div class="input-wrapper">
-                    <div class="avatar-preview">
+                    <div class="avatar-preview" id="avatarPreview">
                         <i class="fas fa-face-smile"></i>
                     </div>
-                    <input type="text" id="robloxUsername" placeholder="@username" onkeydown="if(event.key==='Enter') connectRoblox()">
+                    <input type="text" id="robloxUsername" placeholder="@username" 
+                           oninput="searchRobloxAvatar()"
+                           onkeydown="if(event.key==='Enter') connectRoblox()">
                 </div>
 
                 <button class="btn btn-purple" id="btnRoblox" onclick="connectRoblox()">
@@ -863,13 +596,12 @@
                     <span id="btnRobloxText">CONTINUAR</span>
                     <span class="spinner" id="spinnerRoblox"></span>
                 </button>
-
                 <span class="back-link" onclick="goToStep(1)">← Voltar</span>
             </div>
             <div class="step-indicator">Etapa 2 de 3</div>
         </div>
 
-        <!-- ========== ETAPA 3: VERIFICAÇÃO ========== -->
+        <!-- ETAPA 3: VERIFICAÇÃO -->
         <div class="step-panel" id="step3">
             <div class="glass-card">
                 <div class="card-topbar"></div>
@@ -890,13 +622,11 @@
                 <button class="btn btn-purple" id="btnCopy" onclick="copyCode()">
                     <i class="far fa-copy"></i> Copiar código
                 </button>
-
                 <button class="btn btn-blue" id="btnVerify" onclick="verifyBio()">
                     <i class="fas fa-check-circle"></i>
                     <span id="btnVerifyText">Já colei, verificar agora</span>
                     <span class="spinner" id="spinnerVerify"></span>
                 </button>
-
                 <span class="back-link" onclick="goToStep(2)">← Voltar</span>
 
                 <div class="msg msg-success" id="successVerify"></div>
@@ -920,7 +650,7 @@
             </div>
         </div>
 
-        <!-- ========== ETAPA 4: SUCESSO ========== -->
+        <!-- ETAPA 4: SUCESSO -->
         <div class="step-panel" id="step4">
             <div class="glass-card">
                 <div class="card-topbar"></div>
@@ -938,20 +668,13 @@
     <script>
         const API_URL = "https://free-agents-backend.onrender.com";
 
-        // ========== FUNDO ==========
-        // Agora usamos o padrao de bolinhas azul/preto fixo (definido no CSS do body)
-        // em vez de trocar foto por etapa. Funcao mantida vazia por compatibilidade
-        // com as chamadas existentes.
-        function setBackground(step) {
-            // no-op: fundo fixo de bolinhas
-        }
+        function setBackground(step) {}
 
-        // ========== TOAST DE ERRO ==========
+        // ========== TOASTS ==========
         let errorToastTimeout = null;
         function showErrorToast(message) {
             const toast = document.getElementById("errorToast");
-            const title = document.getElementById("errorToastTitle");
-            title.textContent = message;
+            document.getElementById("errorToastTitle").textContent = message;
             toast.classList.add("show");
             clearTimeout(errorToastTimeout);
             errorToastTimeout = setTimeout(hideErrorToast, 4000);
@@ -961,12 +684,10 @@
             clearTimeout(errorToastTimeout);
         }
 
-        // ========== TOAST DE SUCESSO ==========
         let successToastTimeout = null;
         function showSuccessToast(message) {
             const toast = document.getElementById("successToast");
-            const title = document.getElementById("successToastTitle");
-            title.textContent = message;
+            document.getElementById("successToastTitle").textContent = message;
             toast.classList.add("show");
             clearTimeout(successToastTimeout);
             successToastTimeout = setTimeout(hideSuccessToast, 2500);
@@ -988,19 +709,14 @@
         }
 
         // ========== ETAPA 1: LOGIN DISCORD ==========
-        // MODO PREVIEW: simula o login sem chamar o backend real, so para
-        // conseguir navegar pelas 4 telas aqui no front. Troque o corpo desta
-        // funcao pela versao com fetch() quando for integrar com a API de verdade.
         async function loginDiscord() {
             const btn = document.getElementById("btnDiscord");
             const btnText = document.getElementById("btnDiscordText");
             const spinner = document.getElementById("spinnerDiscord");
-
             btn.disabled = true;
             btnText.textContent = "Redirecionando...";
             spinner.style.display = "inline-block";
             hideErrorToast();
-
             setTimeout(() => {
                 currentToken = "preview-token";
                 btn.disabled = false;
@@ -1013,13 +729,60 @@
         function checkAuth() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get("token");
-
             if (token) {
                 currentToken = token;
                 localStorage.setItem("fa_token", token);
                 window.history.replaceState({}, document.title, "/");
                 goToStep(2);
             }
+        }
+
+        // ========== AVATAR ROBLOX EM TEMPO REAL ==========
+        let avatarTimeout = null;
+
+        async function searchRobloxAvatar() {
+            const username = document.getElementById("robloxUsername").value.trim();
+            const avatarEl = document.getElementById("avatarPreview");
+
+            if (!username) {
+                avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>';
+                return;
+            }
+
+            avatarEl.innerHTML = '<span class="spinner" style="display:inline-block;width:20px;height:20px;--uib-size:20px;"></span>';
+
+            clearTimeout(avatarTimeout);
+            avatarTimeout = setTimeout(async () => {
+                try {
+                    const userRes = await fetch("https://users.roblox.com/v1/usernames/users", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ usernames: [username] })
+                    });
+                    const userData = await userRes.json();
+
+                    if (!userData.data || userData.data.length === 0) {
+                        avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>';
+                        return;
+                    }
+
+                    const userId = userData.data[0].id;
+
+                    const avatarRes = await fetch(
+                        `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png`
+                    );
+                    const avatarData = await avatarRes.json();
+
+                    if (avatarData.data && avatarData.data.length > 0) {
+                        const avatarUrl = avatarData.data[0].imageUrl;
+                        avatarEl.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width:100%;height:100%;border-radius:0.8rem;object-fit:cover;">`;
+                    } else {
+                        avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>';
+                    }
+                } catch (err) {
+                    avatarEl.innerHTML = '<i class="fas fa-face-smile"></i>';
+                }
+            }, 600);
         }
 
         // ========== ETAPA 2: CONECTAR ROBLOX ==========
@@ -1062,9 +825,6 @@
         }
 
         // ========== ETAPA 3: VERIFICAR BIO ==========
-        // MODO PREVIEW: sempre confirma a verificacao localmente, sem chamar
-        // o backend real, so para navegar pelas 4 telas aqui no front. Troque
-        // o corpo desta funcao pela versao com fetch() na integracao real.
         async function verifyBio() {
             const btn = document.getElementById("btnVerify");
             const btnText = document.getElementById("btnVerifyText");
@@ -1086,24 +846,19 @@
             }, 700);
         }
 
-        // ========== SPOTLIGHT NO CARD (segue o mouse) ==========
+        // ========== SPOTLIGHTS & RIPPLE ==========
         function initSpotlight() {
             document.querySelectorAll('.glass-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--spot-x', `${x}px`);
-                    card.style.setProperty('--spot-y', `${y}px`);
+                    card.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
                     card.classList.add('spotlight-active');
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.classList.remove('spotlight-active');
-                });
+                card.addEventListener('mouseleave', () => card.classList.remove('spotlight-active'));
             });
         }
 
-        // ========== SPOTLIGHT DA PÁGINA INTEIRA (segue o mouse) ==========
         function initPageSpotlight() {
             const spot = document.getElementById('pageSpotlight');
             if (!spot) return;
@@ -1112,25 +867,18 @@
                 spot.style.setProperty('--page-spot-y', `${e.clientY}px`);
                 spot.classList.add('active');
             });
-            document.addEventListener('mouseleave', () => {
-                spot.classList.remove('active');
-            });
+            document.addEventListener('mouseleave', () => spot.classList.remove('active'));
         }
 
-        // ========== RIPPLE AO CLICAR (glassmorphism) ==========
         function initClickRipple() {
             document.addEventListener('mousedown', (e) => {
-                spawnRipple(e.clientX, e.clientY);
+                const ripple = document.createElement('div');
+                ripple.className = 'cursor-ripple';
+                ripple.style.left = `${e.clientX}px`;
+                ripple.style.top = `${e.clientY}px`;
+                document.body.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
             });
-        }
-
-        function spawnRipple(x, y) {
-            const ripple = document.createElement('div');
-            ripple.className = 'cursor-ripple';
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            document.body.appendChild(ripple);
-            ripple.addEventListener('animationend', () => ripple.remove());
         }
 
         // ========== INIT ==========
