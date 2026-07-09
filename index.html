@@ -42,14 +42,22 @@
         body::before { content: ''; position: absolute; inset: 0; background: rgba(5, 5, 20, 0.25); z-index: 0; }
         #pageSpotlight { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(650px circle at var(--page-spot-x, 50%) var(--page-spot-y, 50%), rgba(37, 99, 235, 0.14), transparent 60%); opacity: 0; transition: opacity 0.4s ease; }
         #pageSpotlight.active { opacity: 1; }
-        .container { position: relative; z-index: 1; width: 100%; max-width: 480px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { position: relative; z-index: 1; width: 100%; max-width: 520px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .step-panel { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
         .step-panel.active { display: flex; }
         .logo-area { text-align: center; margin-bottom: 22px; }
         .logo-area .badge-ring { width: 58px; height: 58px; margin: 0 auto 10px auto; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--gold); background: var(--gold-soft); box-shadow: 0 0 22px rgba(37, 99, 235, 0.25); }
         .logo-area h1 { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--floodlight); }
         .logo-area span { color: var(--gold); display: block; font-size: 0.75rem; letter-spacing: 5px; font-weight: 600; margin-top: 2px; font-family: 'Oswald', sans-serif; }
-        .glass-card { background: linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3)); background-image: radial-gradient(circle, rgba(147, 197, 253, 0.35) 1px, transparent 1px), radial-gradient(circle, rgba(219, 234, 254, 0.25) 1px, transparent 1px), linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3)); background-size: 20px 20px, 20px 20px, 100% 100%; background-position: 0 0, 10px 10px, 0 0; border: 2px solid #1e40af; border-top-right-radius: 1.5em; border-bottom-left-radius: 1.5em; border-top-left-radius: 6px; border-bottom-right-radius: 6px; padding: 36px 28px; width: 100%; box-shadow: 10px 10px 20px rgba(30, 58, 138, 0.5), -10px -10px 20px rgba(59, 130, 246, 0.15), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.4); text-align: center; position: relative; overflow: hidden; transition: all 0.25s ease; }
+        .glass-card {
+            background: linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
+            background-image: radial-gradient(circle, rgba(147, 197, 253, 0.35) 1px, transparent 1px), radial-gradient(circle, rgba(219, 234, 254, 0.25) 1px, transparent 1px), linear-gradient(135deg, var(--card-gold-1), var(--card-gold-2), var(--card-gold-3));
+            background-size: 20px 20px, 20px 20px, 100% 100%; background-position: 0 0, 10px 10px, 0 0;
+            border: 2px solid #1e40af; border-top-right-radius: 1.5em; border-bottom-left-radius: 1.5em; border-top-left-radius: 6px; border-bottom-right-radius: 6px;
+            padding: 36px 28px; width: 100%;
+            box-shadow: 10px 10px 20px rgba(30, 58, 138, 0.5), -10px -10px 20px rgba(59, 130, 246, 0.15), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.4);
+            text-align: center; position: relative; overflow: hidden; transition: all 0.25s ease;
+        }
         .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 60%; background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent); pointer-events: none; }
         .glass-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(450px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(34, 211, 238, 0.22), transparent 55%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; z-index: 3; }
         .glass-card.spotlight-active::after { opacity: 1; }
@@ -75,6 +83,25 @@
         .btn-purple:hover:not(:disabled), .btn-blue:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 8px 8px 16px rgba(30, 58, 138, 0.5), -8px -8px 16px rgba(147, 197, 253, 0.45), inset 2px 2px 5px rgba(219, 234, 254, 0.6), inset -2px -2px 5px rgba(30, 58, 138, 0.4); }
         .btn-purple:active:not(:disabled), .btn-blue:active:not(:disabled) { transform: translateY(1px); box-shadow: inset 4px 4px 8px rgba(30, 58, 138, 0.5), inset -4px -4px 8px rgba(147, 197, 253, 0.4); }
         .btn-purple::after, .btn-blue::after { background: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.5), transparent 70%); }
+
+        /* ===== ACCOUNT TYPE CARDS ===== */
+        .account-type-cards { display: flex; gap: 16px; margin-bottom: 20px; }
+        .account-type-card {
+            flex: 1; background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(147, 197, 253, 0.12));
+            border: 2px solid rgba(37, 99, 235, 0.2); border-radius: 16px; padding: 24px 16px;
+            cursor: pointer; transition: all 0.3s ease; text-align: center; position: relative;
+        }
+        .account-type-card:hover { border-color: #3b82f6; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3); background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(147, 197, 253, 0.2)); }
+        .account-type-card.selected { border-color: #3b82f6; background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(147, 197, 253, 0.25)); box-shadow: 0 0 25px rgba(37, 99, 235, 0.4); }
+        .account-type-card .type-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+        .account-type-card .type-icon.player { color: #3b82f6; }
+        .account-type-card .type-icon.contractor { color: #8b5cf6; }
+        .account-type-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; color: var(--card-gold-text); }
+        .account-type-card p { font-size: 0.78rem; color: #3a5a8c; line-height: 1.4; }
+        .account-type-card .selected-badge { position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; background: #3b82f6; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 12px; color: #fff; }
+        .account-type-card.selected .selected-badge { display: flex; }
+        .change-notice { font-size: 0.7rem; color: rgba(30, 58, 138, 0.5); margin-top: 12px; text-align: center; }
+
         .input-wrapper { display: flex; align-items: center; background: transparent; border-radius: 1rem; box-shadow: none; padding: 0; gap: 0.4rem; margin-bottom: 20px; }
         .input-wrapper .avatar-preview { width: 44px; height: 44px; background: linear-gradient(135deg, #93c5fd, #3b82f6); border-radius: 0.8rem; box-shadow: 4px 4px 8px rgba(30, 58, 138, 0.4), -4px -4px 8px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; color: hsl(213, 90%, 92%); overflow: hidden; position: relative; transition: box-shadow 0.25s ease; }
         .input-wrapper .avatar-preview img { width: 100%; height: 100%; object-fit: cover; display: block; animation: avatarFadeIn 0.25s ease; }
@@ -84,7 +111,7 @@
         .input-wrapper input { border-radius: 12px; background: linear-gradient(135deg, #93c5fd, #3b82f6); box-shadow: 6px 6px 12px rgba(30, 58, 138, 0.45), -6px -6px 12px rgba(147, 197, 253, 0.4), inset 2px 2px 4px rgba(30, 58, 138, 0.35), inset -2px -2px 4px rgba(219, 234, 254, 0.5); width: 100%; flex-basis: 100%; padding: 14px 16px; border: none; font-weight: bold; color: hsl(213, 90%, 92%); font-size: 16px; outline: none; font-family: 'Inter', sans-serif; transition: box-shadow 0.4s cubic-bezier(0.5, 0, 0.1, 1), background 0.4s cubic-bezier(0.5, 0, 0.1, 1); }
         .input-wrapper input:focus { outline: none; background: linear-gradient(135deg, #93c5fd, #3b82f6); box-shadow: 4px 4px 8px rgba(30, 58, 138, 0.5), -4px -4px 8px rgba(147, 197, 253, 0.45), inset 4px 4px 8px rgba(30, 58, 138, 0.4), inset -4px -4px 8px rgba(219, 234, 254, 0.55); }
         .input-wrapper input::placeholder { color: rgba(30, 58, 138, 0.55); font-weight: 600; }
-        @media (max-width: 500px) { .input-wrapper { flex-direction: column; } .input-wrapper input { border-radius: 0.8rem; } }
+        @media (max-width: 500px) { .input-wrapper { flex-direction: column; } .input-wrapper input { border-radius: 0.8rem; } .account-type-cards { flex-direction: column; } }
         .code-box { background: #000000; border-radius: 15px; padding: 15px 20px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.15); cursor: pointer; position: relative; transition: border-color 0.3s; }
         .code-box:hover { border-color: rgba(96, 165, 250, 0.6); }
         .code-box h3 { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; letter-spacing: 3px; user-select: all; color: #ffffff; }
@@ -146,18 +173,21 @@
     <div class="container">
         <div class="logo-area"><div class="badge-ring"><i class="fa-solid fa-futbol"></i></div><h1>Free Agents</h1><span>— M P S —</span></div>
 
+        <!-- ETAPA 1: LOGIN DISCORD -->
         <div class="step-panel active" id="step1">
             <div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-discord"><i class="fa-brands fa-discord"></i></div><h2><i class="fa-brands fa-discord" style="color:#5865F2; margin-right:8px;"></i>Bem-vindo de volta!</h2><p class="subtitle">Entre com Discord para começar sua jornada.</p><button class="btn btn-discord" id="btnDiscord" onclick="loginDiscord()"><i class="fa-brands fa-discord"></i><span id="btnDiscordText">Entrar com Discord</span><span class="spinner" id="spinnerDiscord"></span></button></div>
             <div class="official-badge"><i class="fa-solid fa-circle-check"></i> Plataforma Oficial Free Agents - MPS</div>
         </div>
 
+        <!-- ETAPA 2: CONECTAR ROBLOX -->
         <div class="step-panel" id="step2">
             <div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-roblox"><i class="fa-solid fa-gamepad"></i></div><h2>Conecte sua conta Roblox</h2><p class="subtitle">Digite seu nome de usuário para verificar.</p>
                 <div class="input-wrapper"><div class="avatar-preview" id="avatarPreview"><i class="fas fa-face-smile" id="avatarPreviewIcon"></i></div><input type="text" id="robloxUsername" placeholder="@username" oninput="onUsernameInput()" onkeydown="if(event.key==='Enter') connectRoblox()"></div>
                 <button class="btn btn-purple" id="btnRoblox" onclick="connectRoblox()"><i class="fa-solid fa-link"></i><span id="btnRobloxText">CONTINUAR</span><span class="spinner" id="spinnerRoblox"></span></button><span class="back-link" onclick="goToStep(1)">← Voltar</span></div>
-            <div class="step-indicator">Etapa 2 de 3</div>
+            <div class="step-indicator">Etapa 2 de 4</div>
         </div>
 
+        <!-- ETAPA 3: VERIFICAÇÃO -->
         <div class="step-panel" id="step3">
             <div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-roblox"><i class="fa-solid fa-shield-halved"></i></div><h2>Verifique sua conta Roblox</h2><p class="subtitle">Cole este código na sua Bio do Roblox</p>
                 <div class="username-display"><i class="fa-solid fa-gamepad"></i> @<span id="displayUsername"></span></div>
@@ -171,8 +201,37 @@
             </div>
         </div>
 
+        <!-- ETAPA 4: ESCOLHER TIPO DE CONTA (SÓ NOVOS USUÁRIOS) -->
         <div class="step-panel" id="step4">
-            <div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-success"><i class="fa-solid fa-circle-check"></i></div><h2>Tudo pronto!</h2><p class="subtitle">Sua conta foi verificada com sucesso.</p><p style="color: var(--grass); font-weight: 600; font-size: 1.05rem; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Bem-vindo ao Free Agents — MPS!</p></div>
+            <div class="glass-card">
+                <div class="card-topbar"></div>
+                <div class="icon-wrapper icon-success"><i class="fa-solid fa-circle-check"></i></div>
+                <h2>Conta verificada!</h2>
+                <p class="subtitle">Agora escolha como deseja usar a plataforma.</p>
+                <div class="account-type-cards">
+                    <div class="account-type-card" id="cardJogador" onclick="selectAccountType('jogador')">
+                        <div class="selected-badge"><i class="fa-solid fa-check"></i></div>
+                        <span class="type-icon player"><i class="fa-solid fa-futbol"></i></span>
+                        <h3>Jogador</h3>
+                        <p>Quero ser encontrado por clubes e mostrar minhas habilidades.</p>
+                    </div>
+                    <div class="account-type-card" id="cardContratante" onclick="selectAccountType('contratante')">
+                        <div class="selected-badge"><i class="fa-solid fa-check"></i></div>
+                        <span class="type-icon contractor"><i class="fa-solid fa-briefcase"></i></span>
+                        <h3>Contratante</h3>
+                        <p>Quero encontrar talentos e contratar jogadores para meu time.</p>
+                    </div>
+                </div>
+                <button class="btn btn-purple" id="btnAccountType" onclick="confirmAccountType()" disabled>
+                    <i class="fa-solid fa-rocket"></i><span id="btnAccountTypeText">Começar</span>
+                </button>
+                <p class="change-notice"><i class="fa-solid fa-circle-info"></i> Você poderá alterar entre Jogador e Contratante a qualquer momento nas configurações.</p>
+            </div>
+        </div>
+
+        <!-- ETAPA 5: TUDO PRONTO -->
+        <div class="step-panel" id="step5">
+            <div class="glass-card"><div class="card-topbar"></div><div class="icon-wrapper icon-success"><i class="fa-solid fa-party-horn"></i></div><h2>Tudo pronto!</h2><p class="subtitle" id="finalAccountType">Sua conta foi criada com sucesso.</p><p style="color: var(--grass); font-weight: 600; font-size: 1.05rem; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;">Bem-vindo ao Free Agents — MPS!</p></div>
         </div>
     </div>
 
@@ -187,10 +246,11 @@
         function showSuccessToast(m) { const t = document.getElementById("successToast"); document.getElementById("successToastTitle").textContent = m; t.classList.add("show"); clearTimeout(successToastTimeout); successToastTimeout = setTimeout(hideSuccessToast, 2500); }
         function hideSuccessToast() { document.getElementById("successToast").classList.remove("show"); clearTimeout(successToastTimeout); }
 
-        let currentToken = null, currentRobloxUser = null, generatedCode = null;
+        let currentToken = null, currentRobloxUser = null, generatedCode = null, accountType = null;
 
         function goToStep(step) { document.querySelectorAll(".step-panel").forEach(p => p.classList.remove("active")); document.getElementById("step" + step).classList.add("active"); setBackground(step); }
 
+        // ========== LOGIN DISCORD ==========
         async function loginDiscord() {
             const btn = document.getElementById("btnDiscord"), btnText = document.getElementById("btnDiscordText"), spinner = document.getElementById("spinnerDiscord");
             btn.disabled = true; btnText.textContent = "Redirecionando..."; spinner.style.display = "inline-block"; hideErrorToast();
@@ -198,8 +258,41 @@
             catch (err) { showErrorToast("Erro ao conectar."); btn.disabled = false; btnText.textContent = "Entrar com Discord"; spinner.style.display = "none"; }
         }
 
-        function checkAuth() { const token = new URLSearchParams(window.location.search).get("token"); if (token) { currentToken = token; localStorage.setItem("fa_token", token); window.history.replaceState({}, document.title, "/"); goToStep(2); } }
+        function checkAuth() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
+            const isNew = urlParams.get("new_user") === "true";
 
+            if (token) {
+                currentToken = token;
+                localStorage.setItem("fa_token", token);
+                window.history.replaceState({}, document.title, "/");
+
+                if (isNew) {
+                    goToStep(2); // Novo usuário: vai pra Roblox
+                } else {
+                    goToStep(5); // Usuário existente: vai pro dashboard
+                }
+            }
+        }
+
+        // ========== TIPO DE CONTA ==========
+        function selectAccountType(type) {
+            accountType = type;
+            document.getElementById("cardJogador").classList.remove("selected");
+            document.getElementById("cardContratante").classList.remove("selected");
+            document.getElementById("card" + type.charAt(0).toUpperCase() + type.slice(1)).classList.add("selected");
+            document.getElementById("btnAccountType").disabled = false;
+        }
+
+        function confirmAccountType() {
+            if (!accountType) { showErrorToast("Selecione um tipo de conta."); return; }
+            const tipoNome = accountType === 'jogador' ? 'Jogador' : 'Contratante';
+            document.getElementById("finalAccountType").textContent = `Sua conta de ${tipoNome} foi criada com sucesso.`;
+            goToStep(5);
+        }
+
+        // ========== AVATAR ROBLOX ==========
         let avatarDebounce = null, avatarRequestId = 0;
         function onUsernameInput() { const u = document.getElementById("robloxUsername").value.trim(); clearTimeout(avatarDebounce); if (!u) { resetAvatarPreview(); return; } avatarDebounce = setTimeout(() => fetchRobloxAvatar(u), 500); }
         function resetAvatarPreview() { const b = document.getElementById("avatarPreview"); b.classList.remove("loading"); b.innerHTML = '<i class="fas fa-face-smile" id="avatarPreviewIcon"></i>'; }
@@ -215,6 +308,7 @@
             } catch (err) { if (req === avatarRequestId) resetAvatarPreview(); }
         }
 
+        // ========== ETAPA 2 ==========
         function connectRoblox() {
             const username = document.getElementById("robloxUsername").value.trim(), btn = document.getElementById("btnRoblox"), btnText = document.getElementById("btnRobloxText"), spinner = document.getElementById("spinnerRoblox");
             if (!username) { showErrorToast("Digite um nome de usuário válido."); return; }
@@ -224,6 +318,7 @@
             setTimeout(() => { btn.disabled = false; btnText.textContent = "CONTINUAR"; spinner.style.display = "none"; goToStep(3); }, 800);
         }
 
+        // ========== ETAPA 3 ==========
         function copyCode() { navigator.clipboard.writeText(generatedCode).then(() => { showSuccessToast("Código copiado!"); document.getElementById("stepCircle1").querySelector(".step-circle").classList.add("done"); }); }
 
         async function verifyBio() {
@@ -245,6 +340,7 @@
             } catch (err) { showErrorToast("Erro ao conectar."); btn.disabled = false; btnText.textContent = "Já colei, verificar agora"; spinner.style.display = "none"; }
         }
 
+        // ========== SPOTLIGHTS & RIPPLE ==========
         function initSpotlight() { document.querySelectorAll('.glass-card').forEach(card => { card.addEventListener('mousemove', (e) => { const r = card.getBoundingClientRect(); card.style.setProperty('--spot-x', `${e.clientX - r.left}px`); card.style.setProperty('--spot-y', `${e.clientY - r.top}px`); card.classList.add('spotlight-active'); }); card.addEventListener('mouseleave', () => card.classList.remove('spotlight-active')); }); }
         function initPageSpotlight() { const spot = document.getElementById('pageSpotlight'); if (!spot) return; window.addEventListener('mousemove', (e) => { spot.style.setProperty('--page-spot-x', `${e.clientX}px`); spot.style.setProperty('--page-spot-y', `${e.clientY}px`); spot.classList.add('active'); }); document.addEventListener('mouseleave', () => spot.classList.remove('active')); }
         function initClickRipple() { document.addEventListener('mousedown', (e) => { const ripple = document.createElement('div'); ripple.className = 'cursor-ripple'; ripple.style.left = `${e.clientX}px`; ripple.style.top = `${e.clientY}px`; document.body.appendChild(ripple); ripple.addEventListener('animationend', () => ripple.remove()); }); }
